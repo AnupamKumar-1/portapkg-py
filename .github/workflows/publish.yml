@@ -15,10 +15,11 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   build:
-    name: Build wheels and release
+    name: Build wheels and publish
     runs-on: ubuntu-latest
 
     steps:
@@ -45,6 +46,9 @@ jobs:
       - name: Build wheel and sdist
         run: |
           python -m build --outdir dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
