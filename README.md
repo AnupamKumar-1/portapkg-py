@@ -1,5 +1,13 @@
 # portapkg
 
+[![PyPI](https://img.shields.io/pypi/v/portapkg?color=brightgreen)](https://pypi.org/project/portapkg/)
+[![Python versions](https://img.shields.io/pypi/pyversions/portapkg)](https://pypi.org/project/portapkg/)
+[![License](https://img.shields.io/pypi/l/portapkg)](LICENSE)
+[![Downloads](https://img.shields.io/pypi/dm/portapkg)](https://pypi.org/project/portapkg/)
+[![CI](https://img.shields.io/github/actions/workflow/status/abduznik/portapkg-py/.github/workflows/test.yml?branch=main&label=CI)](https://github.com/abduznik/portapkg-py/actions/workflows/test.yml)
+[![Last commit](https://img.shields.io/github/last-commit/abduznik/portapkg-py)](https://github.com/abduznik/portapkg-py/commits/main)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
 Portable, offline-friendly Python package bundler and installer.
 
 Bundle a package + all its dependencies on an online machine, then install
