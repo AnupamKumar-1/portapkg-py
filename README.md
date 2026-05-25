@@ -156,6 +156,6 @@ Python versions: 3.9, 3.10, 3.11, 3.12, 3.13
 
 ## Requirements
 
-- **Online machine**: Python 3.8+, pip (any version)
-- **Offline machine**: Python 3.8+, pip (any version)
+- **Online machine**: Python 3.9+, pip (any version)
+- **Offline machine**: Python 3.9+, pip (any version)
 - **No third-party packages** are used by portapkg itself — stdlib only.

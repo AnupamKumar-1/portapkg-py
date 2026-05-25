@@ -7,7 +7,7 @@ name = "portapkg"
 version = "0.1.0"
 description = "Portable, offline-friendly Python package bundler and installer"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
     {name = "portapkg"},
@@ -27,6 +27,9 @@ include = ["portapkg*"]
 
 [tool.setuptools.package-data]
 portapkg = ["py.typed"]
+
+[tool.ruff]
+target-version = "py39"
 
 [tool.pytest.ini_options]
 minversion = "7.0"

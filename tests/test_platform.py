@@ -1,5 +1,5 @@
 import sys
-from unittest.mock import patch, PropertyMock
+from unittest.mock import patch
 
 from portapkg.installer.platform import (
     DEFAULT_PLATFORMS,

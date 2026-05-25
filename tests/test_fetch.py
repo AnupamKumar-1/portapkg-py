@@ -1,9 +1,8 @@
 import subprocess
 import tempfile
-from unittest.mock import ANY, call, patch
+from unittest.mock import patch
 
 from portapkg.bundler.fetch import (
-    _warn,
     download_single_platform,
     download_wheels,
 )

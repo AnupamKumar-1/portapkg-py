@@ -1,5 +1,5 @@
 import subprocess
-from unittest.mock import ANY, call, patch
+from unittest.mock import patch
 
 from portapkg.bundler.resolver import _parse_package_version, freeze_snapshot
 

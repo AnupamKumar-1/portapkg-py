@@ -1,6 +1,5 @@
 import argparse
 import os
-import sys
 
 from portapkg.bundler.fetch import download_wheels, download_single_platform
 from portapkg.bundler.manifest import read_manifest, write_manifest, build_manifest
@@ -86,7 +85,7 @@ def _bundle_multi(package, platforms, python_versions):
 
 
 def _bundle_snapshot(package):
-    print(f"Taking snapshot of current environment...")
+    print("Taking snapshot of current environment...")
     frozen = freeze_snapshot()
     print(f"Found {len(frozen)} packages in environment")
 
