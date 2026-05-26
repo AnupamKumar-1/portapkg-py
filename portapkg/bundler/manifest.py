@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 
@@ -21,7 +22,7 @@ def build_manifest(name, version, deps, source_platform, source_python):
     return {
         "name": name,
         "version": version,
-        "date_bundled": __import__("datetime").datetime.now().isoformat(),
+        "date_bundled": datetime.datetime.now().isoformat(),
         "source_platform": source_platform,
         "source_python": source_python,
         "dependencies": deps,
