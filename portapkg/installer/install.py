@@ -29,8 +29,13 @@ def install_package(bundle_dir, package, target=None):
     manifest = read_manifest(bundle_dir)
     if manifest is None:
         raise RuntimeError(
-            f"No manifest found in {bundle_dir}. "
-            f"Is '{package}' bundled?"
+            f"No manifest found in {bundle_dir}. " f"Is '{package}' bundled?"
+        )
+
+    if manifest.get("name") != package:
+        raise RuntimeError(
+            f"Package name mismatch: requested '{package}' "
+            f"but manifest declares '{manifest.get('name')}'."
         )
 
     cur_plat = detect_current_platform()
@@ -66,9 +71,7 @@ def install_package(bundle_dir, package, target=None):
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        raise RuntimeError(
-            f"Installation failed:\n{result.stdout}\n{result.stderr}"
-        )
+        raise RuntimeError(f"Installation failed:\n{result.stdout}\n{result.stderr}")
     return result.stdout
 
 
