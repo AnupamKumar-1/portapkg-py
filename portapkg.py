@@ -16,7 +16,9 @@ import subprocess
 import sys
 
 
-BUNDLES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bundles")
+BUNDLES_DIR = os.path.abspath(
+    os.environ.get("PORTAPKG_BUNDLES_DIR", os.path.join(os.getcwd(), "bundles"))
+)
 
 
 def _read_manifest(bundle_dir):
@@ -86,7 +88,9 @@ def _plat_matches(wheel_plat, cur_plat):
         if a_arch == b_arch:
             return True
     if a.startswith("macosx") and b.startswith("macosx"):
-        return True
+        a_arch = a.split("_")[-1]
+        b_arch = b.split("_")[-1]
+        return a_arch == b_arch
     if a.startswith("win") and b.startswith("win"):
         a_arch = a.split("_")[-1] if "_" in a else a
         b_arch = b.split("_")[-1] if "_" in b else b

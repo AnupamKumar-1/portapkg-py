@@ -12,8 +12,9 @@ from portapkg.installer.platform import (
 )
 
 
-BUNDLES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "bundles")
-BUNDLES_DIR = os.path.abspath(BUNDLES_DIR)
+BUNDLES_DIR = os.path.abspath(
+    os.environ.get("PORTAPKG_BUNDLES_DIR", os.path.join(os.getcwd(), "bundles"))
+)
 
 
 def _ensure_bundles_dir():
