@@ -9,6 +9,7 @@ import sys
 from portapkg.bundler.fetch import download_wheels, download_single_platform
 from portapkg.bundler.manifest import read_manifest, write_manifest, build_manifest
 from portapkg.bundler.resolver import resolve_dependencies, freeze_snapshot
+from portapkg import __version__
 from portapkg.installer.platform import (
     DEFAULT_PLATFORMS,
     DEFAULT_PYTHON_VERSIONS,
@@ -59,8 +60,8 @@ def cmd_bundle(args):
         if args.snapshot:
             _bundle_snapshot(pkg)
         else:
-            platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
-            python_versions = args.python_versions.split(",") if args.python_versions else DEFAULT_PYTHON_VERSIONS
+            platforms = [p.strip() for p in args.platforms.split(",") if p.strip()] if args.platforms else DEFAULT_PLATFORMS
+            python_versions = [p.strip() for p in args.python_versions.split(",") if p.strip()] if args.python_versions else DEFAULT_PYTHON_VERSIONS
             _bundle_multi(pkg, platforms, python_versions)
 
 
@@ -299,8 +300,8 @@ def cmd_update(args):
         if args.snapshot:
             _bundle_snapshot(pkg)
         else:
-            platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
-            python_versions = args.python_versions.split(",") if args.python_versions else DEFAULT_PYTHON_VERSIONS
+            platforms = [p.strip() for p in args.platforms.split(",") if p.strip()] if args.platforms else DEFAULT_PLATFORMS
+            python_versions = [p.strip() for p in args.python_versions.split(",") if p.strip()] if args.python_versions else DEFAULT_PYTHON_VERSIONS
             _bundle_multi(pkg, platforms, python_versions)
 
 
@@ -308,6 +309,9 @@ def main():
     parser = argparse.ArgumentParser(
         prog="portapkg",
         description="Portable Python package bundler and installer",
+    )
+    parser.add_argument(
+        "--version", action="version", version=f"portapkg {__version__}"
     )
     sub = parser.add_subparsers(dest="command", required=True)
 

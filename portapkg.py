@@ -20,6 +20,9 @@ import subprocess
 import sys
 
 
+VERSION = "0.3.0"
+
+
 BUNDLES_DIR = os.path.abspath(
     os.environ.get("PORTAPKG_BUNDLES_DIR", os.path.join(os.getcwd(), "bundles"))
 )
@@ -329,6 +332,9 @@ def main():
     parser = argparse.ArgumentParser(
         prog="portapkg.py",
         description="Portable offline Python package installer",
+    )
+    parser.add_argument(
+        "--version", action="version", version=f"portapkg.py {VERSION}"
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
