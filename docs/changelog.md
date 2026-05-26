@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.3.0 (2026-05-26)
+
+### Improvements
+
+- **Multi-package install**: `python portapkg.py install pkg1 pkg2 pkg3` —
+  install multiple bundles in one command.
+- **`--all` flag for install**: `python portapkg.py install --all` — install
+  every available bundle in one go.
+- **`testing_grounds/` folder**: Convenient sandbox directory for exports
+  and offline testing, gitignored.
+
 ## v0.2.0 (2026-05-26)
 
 ### Bug fixes
