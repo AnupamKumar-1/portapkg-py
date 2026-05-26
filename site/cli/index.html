@@ -1144,10 +1144,19 @@ machine with Python and pip. No <code>pip install portapkg</code> needed.</p>
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># To a specific directory</span>
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation<span class="w"> </span>--output<span class="w"> </span>./dist
 </code></pre></div>
-<h4 id="python-portapkgpy-install-package"><code>python portapkg.py install &lt;package&gt;</code><a class="headerlink" href="#python-portapkgpy-install-package" title="Permanent link">&para;</a></h4>
-<p>Install a bundled package.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation<span class="w"> </span>--target<span class="w"> </span>./venv/Lib/site-packages
+<h4 id="python-portapkgpy-install-package"><code>python portapkg.py install [package ...]</code><a class="headerlink" href="#python-portapkgpy-install-package" title="Permanent link">&para;</a></h4>
+<p>Install one or more bundled packages.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Single package</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Multiple packages</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>pyserial<span class="w"> </span>pyvisa<span class="w"> </span>flet
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Install all available bundles</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>--all
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># Install to a custom path</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation<span class="w"> </span>--target<span class="w"> </span>./venv/Lib/site-packages
 </code></pre></div>
 <p><strong>Options:</strong></p>
 <table>
@@ -1159,8 +1168,12 @@ machine with Python and pip. No <code>pip install portapkg</code> needed.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>package</code></td>
-<td>Package name (positional, required)</td>
+<td><code>packages</code></td>
+<td>One or more package names (positional, optional if <code>--all</code> used)</td>
+</tr>
+<tr>
+<td><code>--all</code></td>
+<td>Install all available bundles</td>
 </tr>
 <tr>
 <td><code>--target</code></td>

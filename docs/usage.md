@@ -139,10 +139,17 @@ Copy the `bundles/` folder and `portapkg.py` to the offline machine.
 python portapkg.py list
 ```
 
-### Install a bundled package
+### Install one or more packages
 
 ```bash
+# Single package
 python portapkg.py install instrumation
+
+# Multiple packages at once
+python portapkg.py install pyserial pyvisa flet
+
+# Install all available bundles
+python portapkg.py install --all
 ```
 
 ### Install to a custom path

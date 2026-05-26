@@ -152,12 +152,21 @@ python portapkg.py export --name mydev --packages pyserial,pyvisa
 python portapkg.py export instrumation --output ./dist
 ```
 
-#### `python portapkg.py install <package>`
+#### `python portapkg.py install [package ...]`
 
-Install a bundled package.
+Install one or more bundled packages.
 
 ```bash
+# Single package
 python portapkg.py install instrumation
+
+# Multiple packages
+python portapkg.py install pyserial pyvisa flet
+
+# Install all available bundles
+python portapkg.py install --all
+
+# Install to a custom path
 python portapkg.py install instrumation --target ./venv/Lib/site-packages
 ```
 
@@ -165,7 +174,8 @@ python portapkg.py install instrumation --target ./venv/Lib/site-packages
 
 | Flag | Description |
 |---|---|
-| `package` | Package name (positional, required) |
+| `packages` | One or more package names (positional, optional if `--all` used) |
+| `--all` | Install all available bundles |
 | `--target` | Custom install path |
 
 #### `python portapkg.py list`

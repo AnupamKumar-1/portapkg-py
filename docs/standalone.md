@@ -20,8 +20,14 @@ zero third-party dependencies.
 # List available bundles
 python portapkg.py list
 
-# Install a bundled package
+# Install a single package
 python portapkg.py install instrumation
+
+# Install multiple packages at once
+python portapkg.py install pyserial pyvisa flet
+
+# Install all available bundles
+python portapkg.py install --all
 
 # Install to a custom path
 python portapkg.py install instrumation --target ./venv/Lib/site-packages
