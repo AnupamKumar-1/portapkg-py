@@ -1,4 +1,3 @@
-import os
 import subprocess
 import tempfile
 from unittest.mock import patch
