@@ -48,14 +48,26 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Outfit:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Outfit";--md-code-font:"JetBrains Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -67,7 +79,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -148,6 +160,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
       
     </form>
     <div class="md-search__output">
@@ -262,6 +276,8 @@
   
     
     
+      
+        
       
         
       
@@ -415,10 +431,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#no-install-needed-standalone" class="md-nav__link">
+  <a href="#no-install-needed-use-portapkgpy-directly" class="md-nav__link">
     <span class="md-ellipsis">
       
-        No install needed (standalone)
+        No install needed — use portapkg.py directly
       
     </span>
   </a>
@@ -508,6 +524,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#export-a-bundle-for-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export a bundle for distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -585,6 +612,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-portapkgpy-without-pip-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using portapkg.py without pip install
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -637,6 +675,34 @@
     
   
     Standalone script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Export bundles
   
 
     
@@ -836,10 +902,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#no-install-needed-standalone" class="md-nav__link">
+  <a href="#no-install-needed-use-portapkgpy-directly" class="md-nav__link">
     <span class="md-ellipsis">
       
-        No install needed (standalone)
+        No install needed — use portapkg.py directly
       
     </span>
   </a>
@@ -929,6 +995,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#export-a-bundle-for-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export a bundle for distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1000,6 +1077,17 @@
     <span class="md-ellipsis">
       
         Typical workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-portapkgpy-without-pip-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using portapkg.py without pip install
       
     </span>
   </a>
@@ -1084,17 +1172,36 @@
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>portapkg-py
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
 </code></pre></div>
-<h3 id="no-install-needed-standalone">No install needed (standalone)<a class="headerlink" href="#no-install-needed-standalone" title="Permanent link">&para;</a></h3>
-<p>The <code>portapkg.py</code> file is fully self-contained — stdlib only. Just copy it
-alongside your <code>bundles/</code> folder and you're ready.</p>
+<h3 id="no-install-needed-use-portapkgpy-directly">No install needed — use portapkg.py directly<a class="headerlink" href="#no-install-needed-use-portapkgpy-directly" title="Permanent link">&para;</a></h3>
+<p>The <code>portapkg.py</code> file is fully self-contained — stdlib only, zero
+dependencies. You can use it for <strong>both bundling and installing</strong> without
+running <code>pip install</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Bundle a package (works if pip is available)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>portapkg.py<span class="w"> </span>bundle<span class="w"> </span>instrumation
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># List bundles</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>python3<span class="w"> </span>portapkg.py<span class="w"> </span>list
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Show bundle details  </span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>python3<span class="w"> </span>portapkg.py<span class="w"> </span>info<span class="w"> </span>instrumation
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Export for distribution</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>python3<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">One file to rule them all</p>
+<p><code>portapkg.py</code> works on both the online machine (bundling) and the
+offline machine (installing). Just copy it alongside your <code>bundles/</code>
+folder and you're ready.</p>
+</div>
 <h2 id="bundling-packages">Bundling packages<a class="headerlink" href="#bundling-packages" title="Permanent link">&para;</a></h2>
 <h3 id="basic-bundling">Basic bundling<a class="headerlink" href="#basic-bundling" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>portapkg<span class="w"> </span>bundle<span class="w"> </span>instrumation
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>portapkg<span class="w"> </span>bundle<span class="w"> </span>instrumation
 </code></pre></div>
 <p>This downloads wheels for <strong>6 platforms × 5 Python versions</strong> (up to 30
 downloads per dependency). The output goes to <code>./bundles/instrumation/</code>.</p>
 <h3 id="specific-platforms">Specific platforms<a class="headerlink" href="#specific-platforms" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>portapkg<span class="w"> </span>bundle<span class="w"> </span>pyserial<span class="w"> </span>--platforms<span class="w"> </span>win_amd64,macosx_13_0_arm64
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>portapkg<span class="w"> </span>bundle<span class="w"> </span>pyserial<span class="w"> </span>--platforms<span class="w"> </span>win_amd64,macosx_13_0_arm64
 </code></pre></div>
 <p>Valid platform tags:</p>
 <table>
@@ -1132,44 +1239,54 @@ downloads per dependency). The output goes to <code>./bundles/instrumation/</cod
 </tbody>
 </table>
 <h3 id="snapshot-mode-single-platform">Snapshot mode (single platform)<a class="headerlink" href="#snapshot-mode-single-platform" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>portapkg<span class="w"> </span>bundle<span class="w"> </span>instrumation<span class="w"> </span>--snapshot
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>portapkg<span class="w"> </span>bundle<span class="w"> </span>instrumation<span class="w"> </span>--snapshot
 </code></pre></div>
 <p>Downloads wheels for your <strong>current machine only</strong>. Faster and more reliable,
 but the bundle only works on machines with the same OS and architecture.</p>
 <h3 id="custom-bundle-directory">Custom bundle directory<a class="headerlink" href="#custom-bundle-directory" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">PORTAPKG_BUNDLES_DIR</span><span class="o">=</span>/path/to/bundles<span class="w"> </span>portapkg<span class="w"> </span>bundle<span class="w"> </span>instrumation
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">PORTAPKG_BUNDLES_DIR</span><span class="o">=</span>/path/to/bundles<span class="w"> </span>portapkg<span class="w"> </span>bundle<span class="w"> </span>instrumation
 </code></pre></div>
 <h3 id="list-and-inspect-bundles">List and inspect bundles<a class="headerlink" href="#list-and-inspect-bundles" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># List all bundles</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>portapkg<span class="w"> </span>list
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Show details of a specific bundle</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>portapkg<span class="w"> </span>info<span class="w"> </span>instrumation
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># List all bundles</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>portapkg<span class="w"> </span>list
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Show details of a specific bundle</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>portapkg<span class="w"> </span>info<span class="w"> </span>instrumation
 </code></pre></div>
 <h3 id="update-a-bundle">Update a bundle<a class="headerlink" href="#update-a-bundle" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Re-fetch a bundle with all platforms</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>portapkg<span class="w"> </span>update<span class="w"> </span>instrumation
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Re-fetch with specific platforms</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>portapkg<span class="w"> </span>update<span class="w"> </span>instrumation<span class="w"> </span>--platforms<span class="w"> </span>win_amd64,linux_x86_64
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Re-fetch as snapshot</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>portapkg<span class="w"> </span>update<span class="w"> </span>instrumation<span class="w"> </span>--snapshot
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Re-fetch a bundle with all platforms</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>portapkg<span class="w"> </span>update<span class="w"> </span>instrumation
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Re-fetch with specific platforms</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>portapkg<span class="w"> </span>update<span class="w"> </span>instrumation<span class="w"> </span>--platforms<span class="w"> </span>win_amd64,linux_x86_64
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Re-fetch as snapshot</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>portapkg<span class="w"> </span>update<span class="w"> </span>instrumation<span class="w"> </span>--snapshot
 </code></pre></div>
+<h3 id="export-a-bundle-for-distribution">Export a bundle for distribution<a class="headerlink" href="#export-a-bundle-for-distribution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Export the bundle + portapkg.py into a portable folder</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Export to a specific directory</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation<span class="w"> </span>--output<span class="w"> </span>./dist
+</code></pre></div>
+<p>This creates a timestamped folder like <code>instrumation_a3f2e6_2026-05-26/</code>
+containing <code>portapkg.py</code> and the <code>bundles/</code> folder — ready to zip up or
+copy to a USB drive.</p>
 <h2 id="installing-offline">Installing offline<a class="headerlink" href="#installing-offline" title="Permanent link">&para;</a></h2>
 <p>Copy the <code>bundles/</code> folder and <code>portapkg.py</code> to the offline machine.</p>
 <h3 id="list-available-bundles">List available bundles<a class="headerlink" href="#list-available-bundles" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>list
 </code></pre></div>
 <h3 id="install-a-bundled-package">Install a bundled package<a class="headerlink" href="#install-a-bundled-package" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation
 </code></pre></div>
 <h3 id="install-to-a-custom-path">Install to a custom path<a class="headerlink" href="#install-to-a-custom-path" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation<span class="w"> </span>--target<span class="w"> </span>./venv/Lib/site-packages
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation<span class="w"> </span>--target<span class="w"> </span>./venv/Lib/site-packages
 </code></pre></div>
 <h3 id="custom-bundle-directory_1">Custom bundle directory<a class="headerlink" href="#custom-bundle-directory_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">PORTAPKG_BUNDLES_DIR</span><span class="o">=</span>/path/to/bundles<span class="w"> </span>python<span class="w"> </span>portapkg.py<span class="w"> </span>list
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nv">PORTAPKG_BUNDLES_DIR</span><span class="o">=</span>/path/to/bundles<span class="w"> </span>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">PORTAPKG_BUNDLES_DIR</span><span class="o">=</span>/path/to/bundles<span class="w"> </span>python<span class="w"> </span>portapkg.py<span class="w"> </span>list
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nv">PORTAPKG_BUNDLES_DIR</span><span class="o">=</span>/path/to/bundles<span class="w"> </span>python<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation
 </code></pre></div>
 <h2 id="typical-workflow">Typical workflow<a class="headerlink" href="#typical-workflow" title="Permanent link">&para;</a></h2>
 <table>
@@ -1192,12 +1309,35 @@ but the bundle only works on machines with the same OS and architecture.</p>
 <td><code>python portapkg.py install pyserial</code></td>
 </tr>
 <tr>
+<td><code>portapkg export pyserial</code></td>
+<td><code>pkg_abc123_2026-05-26/</code> folder</td>
+<td>unzip → <code>python portapkg.py install pyserial</code></td>
+</tr>
+<tr>
 <td>→ bundles ready in <code>./bundles/</code></td>
 <td>Copy both</td>
 <td>→ installs from local wheels</td>
 </tr>
 </tbody>
 </table>
+<h2 id="using-portapkgpy-without-pip-install">Using portapkg.py without pip install<a class="headerlink" href="#using-portapkgpy-without-pip-install" title="Permanent link">&para;</a></h2>
+<p>You can use the standalone <code>portapkg.py</code> from the source repository directly
+for <strong>both bundling and installing</strong> — no <code>pip install</code> required:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/abduznik/portapkg-py
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">cd</span><span class="w"> </span>portapkg-py
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Bundle a package (needs pip available)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>python3<span class="w"> </span>portapkg.py<span class="w"> </span>bundle<span class="w"> </span>instrumation
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># Export for distribution</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>python3<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="c1"># On the offline machine:</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>python3<span class="w"> </span>portapkg.py<span class="w"> </span>install<span class="w"> </span>instrumation
+</code></pre></div>
+<p><code>portapkg.py</code> is fully self-contained (stdlib only). The <code>bundle</code> and <code>export</code>
+commands delegate to pip under the hood, so they need pip available on the
+machine — but no portapkg-specific dependencies are needed.</p>
 
 
 
@@ -1206,6 +1346,8 @@ but the bundle only works on machines with the same OS and architecture.</p>
 
 
 
+
+  
 
 
 
@@ -1220,6 +1362,12 @@ but the bundle only works on machines with the same OS and architecture.</p>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
       </main>
       
         <footer class="md-footer">
@@ -1229,14 +1377,11 @@ but the bundle only works on machines with the same OS and architecture.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2026 portapkg
+      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">Material for MkDocs</a> &mdash;
+<a href="#__consent">Change cookie settings</a>
+
     </div>
   
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
   
 </div>
       
@@ -1254,6 +1399,28 @@ but the bundle only works on machines with the same OS and architecture.</p>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://pypi.org/project/portapkg/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 444.7a20.4 20.4 0 1 1 0-40.7 20.4 20.4 0 1 1 0 40.7M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.6-183.4a20.4 20.4 0 1 1 0 40.8 20.4 20.4 0 1 1 0-40.8"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/abduznik/portapkg-py/blob/main/portapkg.py" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64C0 28.7 28.7 0 64 0h149.5c17 0 33.3 6.7 45.3 18.7l106.5 106.6c12 12 18.7 28.3 18.7 45.3V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm208-5.5V152c0 13.3 10.7 24 24 24h93.5zm-53.8 237.1c8.6-10.1 7.5-25.2-2.6-33.8s-25.2-7.5-33.8 2.6l-48 56c-7.7 9-7.7 22.2 0 31.2l48 56c8.6 10.1 23.8 11.2 33.8 2.6s11.2-23.8 2.6-33.8L119.6 336zm112-31.2c-8.6-10.1-23.8-11.2-33.8-2.6s-11.2 23.8-2.6 33.8l34.6 40.4-34.6 40.4c-8.6 10.1-7.5 25.2 2.6 33.8s25.2 7.5 33.8-2.6l48-56c7.7-9 7.7-22.2 0-31.2z"/></svg>
+    </a>
+  
 </div>
       
     </div>
@@ -1269,7 +1436,7 @@ but the bundle only works on machines with the same OS and architecture.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.path", "navigation.indexes", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.path", "navigation.indexes", "navigation.top", "content.code.copy", "content.code.annotate", "content.tabs.link", "search.suggest", "search.highlight", "header.autohide", "announce.dismiss"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>

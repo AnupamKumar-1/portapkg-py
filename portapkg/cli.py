@@ -1,5 +1,10 @@
 import argparse
+import datetime
 import os
+import random
+import shutil
+import string
+import sys
 
 from portapkg.bundler.fetch import download_wheels, download_single_platform
 from portapkg.bundler.manifest import read_manifest, write_manifest, build_manifest
@@ -177,6 +182,74 @@ def cmd_info(args):
         print(f"  {wf}")
 
 
+def _find_standalone():
+    """Locate portapkg.py for export."""
+    locations = [
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "portapkg.py"),
+        os.path.join(os.getcwd(), "portapkg.py"),
+    ]
+    for loc in locations:
+        if os.path.isfile(loc):
+            return os.path.abspath(loc)
+    return None
+
+
+def cmd_export(args):
+    """Export a bundle + portapkg.py into a portable folder."""
+    bundle_src = _get_bundle_dir(args.package)
+    if not os.path.isdir(bundle_src):
+        print(f"ERROR: Bundle for '{args.package}' not found in {BUNDLES_DIR}.\n"
+              f"Bundle it first: portapkg bundle {args.package}", file=sys.stderr)
+        return 1
+
+    standalone = _find_standalone()
+    if standalone is None:
+        print("ERROR: Could not find portapkg.py. "
+              "Run this from the source repo or place portapkg.py in the current directory.",
+              file=sys.stderr)
+        return 1
+
+    today = datetime.date.today().isoformat()
+    rand_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
+    folder_name = f"{args.package}_{rand_id}_{today}"
+
+    output_parent = os.path.abspath(args.output) if args.output else os.getcwd()
+    output_dir = os.path.join(output_parent, folder_name)
+
+    if os.path.exists(output_dir):
+        print(f"ERROR: {output_dir} already exists.", file=sys.stderr)
+        return 1
+
+    # Build structure: {output_dir}/portapkg.py + bundles/{package}/
+    bundles_out = os.path.join(output_dir, "bundles")
+    os.makedirs(bundles_out, exist_ok=True)
+
+    # Copy portapkg.py
+    shutil.copy2(standalone, os.path.join(output_dir, "portapkg.py"))
+    os.chmod(os.path.join(output_dir, "portapkg.py"), 0o755)
+
+    # Copy bundle
+    pkg_out = os.path.join(bundles_out, args.package)
+    shutil.copytree(bundle_src, pkg_out)
+
+    print(f"Exported to: {output_dir}")
+    print(f"  Size: {_dir_size(output_dir):.1f} MB")
+    print("  Contents:")
+    print(f"    {output_dir}/portapkg.py")
+    print(f"    {output_dir}/bundles/{args.package}/")
+    return 0
+
+
+def _dir_size(path):
+    total = 0
+    for dirpath, _, filenames in os.walk(path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            if os.path.isfile(fp):
+                total += os.path.getsize(fp)
+    return total / (1024 * 1024)
+
+
 def cmd_update(args):
     _ensure_bundles_dir()
     if args.snapshot:
@@ -199,6 +272,11 @@ def main():
     p_bundle.add_argument("--snapshot", action="store_true", help="Snapshot current env (single-platform)")
     p_bundle.set_defaults(func=cmd_bundle)
 
+    p_export = sub.add_parser("export", help="Export a bundle + portapkg.py into a portable folder")
+    p_export.add_argument("package", help="Package name")
+    p_export.add_argument("--output", "-o", help="Output directory (default: current directory)")
+    p_export.set_defaults(func=cmd_export)
+
     p_list = sub.add_parser("list", help="List all bundles")
     p_list.set_defaults(func=cmd_list)
 
@@ -213,7 +291,9 @@ def main():
     p_update.set_defaults(func=cmd_update)
 
     args = parser.parse_args()
-    args.func(args)
+    ret = args.func(args)
+    if isinstance(ret, int) and ret != 0:
+        sys.exit(ret)
 
 
 if __name__ == "__main__":

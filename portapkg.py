@@ -9,9 +9,13 @@ Copy this file + bundles/ folder to an offline machine and run:
 """
 
 import argparse
+import datetime
 import json
 import os
 import platform as _platform
+import random
+import shutil
+import string
 import subprocess
 import sys
 
@@ -185,6 +189,57 @@ def cmd_install(args):
     print(f"Successfully installed {args.package}")
 
 
+def cmd_export(args):
+    """Export a bundle + this script into a portable folder."""
+    bundle_src = os.path.join(BUNDLES_DIR, args.package)
+    if not os.path.isdir(bundle_src):
+        print(
+            f"ERROR: Bundle for '{args.package}' not found in {BUNDLES_DIR}.\n"
+            f"Bundle it first: python {os.path.basename(__file__)} bundle {args.package}",
+            file=sys.stderr,
+        )
+        return 1
+
+    today = datetime.date.today().isoformat()
+    rand_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
+    folder_name = f"{args.package}_{rand_id}_{today}"
+
+    output_parent = os.path.abspath(args.output) if args.output else os.getcwd()
+    output_dir = os.path.join(output_parent, folder_name)
+
+    if os.path.exists(output_dir):
+        print(f"ERROR: {output_dir} already exists.", file=sys.stderr)
+        return 1
+
+    # Build structure: {output_dir}/portapkg.py + bundles/{package}/
+    bundles_out = os.path.join(output_dir, "bundles")
+    os.makedirs(bundles_out, exist_ok=True)
+
+    # Copy this script (standalone)
+    script_path = os.path.abspath(__file__)
+    shutil.copy2(script_path, os.path.join(output_dir, os.path.basename(__file__)))
+
+    # Copy bundle
+    pkg_out = os.path.join(bundles_out, args.package)
+    shutil.copytree(bundle_src, pkg_out)
+
+    # Calculate size
+    total_bytes = 0
+    for dirpath, _, filenames in os.walk(output_dir):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            if os.path.isfile(fp):
+                total_bytes += os.path.getsize(fp)
+    size_mb = total_bytes / (1024 * 1024)
+
+    print(f"Exported to: {output_dir}")
+    print(f"  Size: {size_mb:.1f} MB")
+    print("  Contents:")
+    print(f"    {output_dir}/{os.path.basename(__file__)}")
+    print(f"    {output_dir}/bundles/{args.package}/")
+    return 0
+
+
 def cmd_list(args):
     if not os.path.isdir(BUNDLES_DIR):
         print("No bundles directory found.")
@@ -222,11 +277,18 @@ def main():
     )
     p_install.set_defaults(func=cmd_install)
 
+    p_export = sub.add_parser("export", help="Export a bundle into a portable folder")
+    p_export.add_argument("package", help="Package name")
+    p_export.add_argument("--output", "-o", help="Output directory (default: current directory)")
+    p_export.set_defaults(func=cmd_export)
+
     p_list = sub.add_parser("list", help="List available bundles")
     p_list.set_defaults(func=cmd_list)
 
     args = parser.parse_args()
-    args.func(args)
+    ret = args.func(args)
+    if isinstance(ret, int) and ret != 0:
+        sys.exit(ret)
 
 
 if __name__ == "__main__":

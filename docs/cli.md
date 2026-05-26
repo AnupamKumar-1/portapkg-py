@@ -40,6 +40,25 @@ Show details about a specific bundle.
 portapkg info instrumation
 ```
 
+#### `portapkg export <package>`
+
+Bundle + standalone installer into a portable folder.
+
+```bash
+portapkg export instrumation
+portapkg export instrumation --output ./dist
+```
+
+Creates `{package}_{random_id}_{date}/` with `portapkg.py` + `bundles/{package}/`
+inside — ready to ship.
+
+**Options:**
+
+| Flag | Description |
+|---|---|
+| `package` | Package name (positional, required) |
+| `--output`, `-o` | Output directory (default: current directory) |
+
 #### `portapkg update <package>`
 
 Re-fetch a bundle (same options as `bundle`).
@@ -66,9 +85,29 @@ portapkg update instrumation --snapshot
 
 ## `portapkg.py`
 
-The standalone installer for offline machines. No installation needed.
+The standalone script — works for **both bundling and installing** on any
+machine with Python and pip. No `pip install portapkg` needed.
 
 ### Commands
+
+#### `python portapkg.py bundle <package>`
+
+Bundle a package (same options as the CLI).
+
+```bash
+python portapkg.py bundle instrumation
+python portapkg.py bundle instrumation --platforms win_amd64,macosx_13_0_arm64
+python portapkg.py bundle instrumation --snapshot
+```
+
+#### `python portapkg.py export <package>`
+
+Export a bundle into a portable folder.
+
+```bash
+python portapkg.py export instrumation
+python portapkg.py export instrumation --output ./dist
+```
 
 #### `python portapkg.py install <package>`
 

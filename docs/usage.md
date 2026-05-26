@@ -16,10 +16,30 @@ cd portapkg-py
 pip install -e ".[dev]"
 ```
 
-### No install needed (standalone)
+### No install needed — use portapkg.py directly
 
-The `portapkg.py` file is fully self-contained — stdlib only. Just copy it
-alongside your `bundles/` folder and you're ready.
+The `portapkg.py` file is fully self-contained — stdlib only, zero
+dependencies. You can use it for **both bundling and installing** without
+running `pip install`:
+
+```bash
+# Bundle a package (works if pip is available)
+python3 portapkg.py bundle instrumation
+
+# List bundles
+python3 portapkg.py list
+
+# Show bundle details  
+python3 portapkg.py info instrumation
+
+# Export for distribution
+python3 portapkg.py export instrumation
+```
+
+!!! tip "One file to rule them all"
+    `portapkg.py` works on both the online machine (bundling) and the
+    offline machine (installing). Just copy it alongside your `bundles/`
+    folder and you're ready.
 
 ## Bundling packages
 
@@ -87,6 +107,20 @@ portapkg update instrumation --platforms win_amd64,linux_x86_64
 portapkg update instrumation --snapshot
 ```
 
+### Export a bundle for distribution
+
+```bash
+# Export the bundle + portapkg.py into a portable folder
+portapkg export instrumation
+
+# Export to a specific directory
+portapkg export instrumation --output ./dist
+```
+
+This creates a timestamped folder like `instrumation_a3f2e6_2026-05-26/`
+containing `portapkg.py` and the `bundles/` folder — ready to zip up or
+copy to a USB drive.
+
 ## Installing offline
 
 Copy the `bundles/` folder and `portapkg.py` to the offline machine.
@@ -122,4 +156,28 @@ PORTAPKG_BUNDLES_DIR=/path/to/bundles python portapkg.py install instrumation
 |---|---|---|
 | `portapkg bundle pyserial` | `bundles/` folder | `python portapkg.py list` |
 | `portapkg bundle pyvisa` | `portapkg.py` file | `python portapkg.py install pyserial` |
+| `portapkg export pyserial` | `pkg_abc123_2026-05-26/` folder | unzip → `python portapkg.py install pyserial` |
 | → bundles ready in `./bundles/` | Copy both | → installs from local wheels |
+
+## Using portapkg.py without pip install
+
+You can use the standalone `portapkg.py` from the source repository directly
+for **both bundling and installing** — no `pip install` required:
+
+```bash
+git clone https://github.com/abduznik/portapkg-py
+cd portapkg-py
+
+# Bundle a package (needs pip available)
+python3 portapkg.py bundle instrumation
+
+# Export for distribution
+python3 portapkg.py export instrumation
+
+# On the offline machine:
+python3 portapkg.py install instrumation
+```
+
+`portapkg.py` is fully self-contained (stdlib only). The `bundle` and `export`
+commands delegate to pip under the hood, so they need pip available on the
+machine — but no portapkg-specific dependencies are needed.

@@ -1,0 +1,324 @@
+/* ===== Custom Color Palette ===== */
+:root {
+  --md-primary-fg-color: #7c3aed;
+  --md-primary-fg-color--light: #a78bfa;
+  --md-primary-fg-color--dark: #5b21b6;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: #f5f3ff;
+
+  --md-accent-fg-color: #f59e0b;
+  --md-accent-fg-color--light: #fbbf24;
+  --md-accent-fg-color--dark: #d97706;
+  --md-accent-bg-color: #1e1b4b;
+  --md-accent-bg-color--light: #312e81;
+
+  --md-typeset-a-color: #a78bfa;
+
+  --md-footer-bg-color: #0f0a1e;
+  --md-footer-bg-color--dark: #080515;
+}
+
+/* ===== Animated Gradient Body Background ===== */
+[data-md-color-scheme="slate"] {
+  --md-hue: 250;
+  --md-default-bg-color: linear-gradient(
+    135deg,
+    #0f0a1e 0%,
+    #1a1040 25%,
+    #0f2027 50%,
+    #1a1040 75%,
+    #0f0a1e 100%
+  );
+}
+
+body {
+  background: linear-gradient(-45deg, #0f0a1e, #1a1040, #0f2027, #1a1040, #0f0a1e);
+  background-size: 400% 400%;
+  animation: gradient-shift 20s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Glassmorphism Hero Card for Homepage ===== */
+.md-typeset .hero {
+  background: rgba(124, 58, 237, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  border-radius: 24px;
+  padding: 2rem 2.5rem;
+  margin: 1rem 0 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.md-typeset .hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.md-typeset .hero h1 {
+  margin-top: 0;
+  background: linear-gradient(135deg, #a78bfa, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* ===== Feature Cards (grid of 3) ===== */
+.md-typeset .feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.md-typeset .feature-card {
+  background: rgba(124, 58, 237, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.md-typeset .feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(167, 139, 250, 0.3);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.15);
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.md-typeset .feature-card .feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.md-typeset .feature-card h3 {
+  margin: 0.3rem 0 0.5rem 0;
+  color: var(--md-primary-fg-color--light);
+  font-weight: 700;
+}
+
+.md-typeset .feature-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* ===== Gradient Text on Headers ===== */
+.md-typeset h1 {
+  background: linear-gradient(135deg, #a78bfa 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.md-typeset h2 {
+  color: #c4b5fd;
+  font-weight: 700;
+  border-bottom: 2px solid rgba(167, 139, 250, 0.15);
+  padding-bottom: 0.3rem;
+}
+
+.md-typeset h3 {
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+/* ===== Code Block Styling ===== */
+.md-typeset pre > code {
+  border: 1px solid rgba(167, 139, 250, 0.1);
+  border-radius: 12px;
+}
+
+.md-typeset .highlight {
+  border-radius: 12px;
+}
+
+/* ===== Admonition / Callout Cards ===== */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 12px;
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  background: rgba(124, 58, 237, 0.04);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Navigation ===== */
+.md-nav__link:hover {
+  color: var(--md-accent-fg-color) !important;
+  transition: color 0.2s ease;
+}
+
+.md-nav__link--active {
+  color: var(--md-primary-fg-color--light) !important;
+  font-weight: 600;
+}
+
+/* ===== Tables ===== */
+.md-typeset table:not(.highlighttable) {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(167, 139, 250, 0.1);
+  background: rgba(124, 58, 237, 0.03);
+}
+
+.md-typeset table:not(.highlighttable) th {
+  background: rgba(124, 58, 237, 0.15);
+  color: #c4b5fd;
+  font-weight: 700;
+}
+
+.md-typeset table:not(.highlighttable) tr:hover {
+  background: rgba(124, 58, 237, 0.06);
+}
+
+/* ===== Footer ===== */
+.md-footer-meta {
+  background: rgba(8, 5, 21, 0.8) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(167, 139, 250, 0.08);
+}
+
+/* ===== Header ===== */
+.md-header {
+  background: rgba(15, 10, 30, 0.85) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.08);
+}
+
+/* ===== Tabbed Content ===== */
+.md-typeset .tabbed-set {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ===== Keyboard Keys ===== */
+.md-typeset kbd {
+  border-radius: 6px;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  color: #c4b5fd;
+  font-size: 0.8em;
+  padding: 0.2em 0.5em;
+}
+
+/* ===== Content Tabs ===== */
+.md-typeset .tabbed-labels {
+  background: rgba(124, 58, 237, 0.04);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+}
+
+.md-typeset .tabbed-labels > label {
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  color: var(--md-accent-fg-color);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 10, 30, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.5);
+}
+
+/* ===== Animations ===== */
+.md-typeset .feature-card,
+.md-typeset .admonition,
+.md-typeset details {
+  animation: fade-in-up 0.4s ease-out both;
+}
+
+.md-typeset .feature-card:nth-child(2) { animation-delay: 0.05s; }
+.md-typeset .feature-card:nth-child(3) { animation-delay: 0.1s; }
+.md-typeset .feature-card:nth-child(4) { animation-delay: 0.15s; }
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Workflow Table ===== */
+.md-typeset .workflow-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.md-typeset .workflow-table th {
+  text-align: center;
+}
+
+.md-typeset .workflow-table td {
+  text-align: center;
+  vertical-align: top;
+}
+
+/* ===== Badge/Pill Styling ===== */
+.md-typeset .badge {
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: 9999px;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: #c4b5fd;
+}
+
+/* ===== Terminal Block Enhancements ===== */
+.md-typeset .highlight .gp { /* prompt */
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.md-typeset .highlight .go { /* output */
+  color: #9ca3af;
+}
