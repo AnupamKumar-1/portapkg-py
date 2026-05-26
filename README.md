@@ -27,6 +27,9 @@ portapkg bundle instrumation
 # Bundle for specific platforms only
 portapkg bundle instrumation --platforms win_amd64,macosx_13_0_arm64
 
+# Bundle for specific platforms and python versions (faster!)
+portapkg bundle instrumation --platforms win_amd64 --python-versions 313
+
 # Bundle a snapshot of the current environment (single platform, most reliable)
 portapkg bundle instrumation --snapshot
 
@@ -73,12 +76,21 @@ The `portapkg.py` file is fully self-contained — stdlib only, no dependencies.
 ## How it works
 
 1. **Dependency resolution**: `pip download <package>` resolves the full
-   transitive dependency tree using pip's own resolver.
+   transitive dependency tree using pip's own resolver. For multi-platform
+   bundles, the resolver also scans each wheel's METADATA for
+   platform-conditional deps (e.g. `pefile; sys_platform == "win32"`) and
+   recursively resolves any missing deps found.
 2. **Multi-platform fetch**: For each dependency, wheels are downloaded
-   across 6 platforms × 5 Python versions using
+   across multiple platforms × Python versions using
    `pip download --platform --python-version --only-binary=:all:`.
-3. **Fallback**: If no binary wheel exists for a platform, the tool falls
-   back to a source distribution and warns the user.
+3. **Layered fallback strategy**:
+   - **Layer 1**: Exact binary wheel for the target platform/Python.
+   - **Layer 2**: Platform-constrained source distribution.
+   - **Layer 3**: Unconstrained source distribution — catches sdist-only
+     packages like `Eel`.
+   - **Layer 4**: Version bump — queries `pip index versions` for newer
+     releases with binary wheel coverage (e.g. `msgpack` gaining cp313
+     wheels in a later patch).
 4. **Offline install**: `pip install --no-index --find-links <wheels_dir>`
    installs from local files only.
 
@@ -156,7 +168,11 @@ Python versions: 3.9, 3.10, 3.11, 3.12, 3.13
 
 ## Error handling
 
-- **Missing binary wheel**: warns and falls back to source dist
+- **Missing binary wheel**: warns and falls back through layered strategy
+  (source dist → unconstrained sdist → version bump)
+- **Platform-conditional deps**: automatically resolved by scanning wheel
+  METADATA for `Requires-Dist` lines with `sys_platform` / `platform_system`
+  / `implementation_name` markers, evaluated with `packaging.markers`.
 - **No compatible wheel** on offline machine: clear human-readable error
   with suggested fix (`--snapshot`)
 - **Missing pip**: detected before any install attempt

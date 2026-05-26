@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 import sys
 
@@ -7,15 +8,17 @@ from portapkg.installer.platform import (
     DEFAULT_PYTHON_VERSIONS,
     parse_wheel_filename,
     platform_tag_matches,
+    python_tag_matches,
 )
 
 
 
-def _wheel_exists(package, version, dest_dir, plat=None):
+def _wheel_exists(package, version, dest_dir, plat=None, pyver=None):
     """Check if a compatible wheel for (package, version) already exists.
 
     If plat is provided, also checks that the existing wheel's platform
     tag is compatible with the requested platform.
+    If pyver is provided, also checks that the python tag is compatible.
     """
     if not os.path.isdir(dest_dir):
         return False
@@ -24,14 +27,71 @@ def _wheel_exists(package, version, dest_dir, plat=None):
     for fname in os.listdir(dest_dir):
         if not (fname.lower().startswith(prefix) and fname.endswith(".whl")):
             continue
-        if plat is None:
-            return True
         parsed = parse_wheel_filename(fname)
         if parsed is None:
             continue
-        if platform_tag_matches(parsed["platform_tag"], plat):
-            return True
+        if plat and not platform_tag_matches(parsed["platform_tag"], plat):
+            continue
+        if pyver and not python_tag_matches(parsed["python_tag"], pyver):
+            continue
+        return True
     return False
+
+
+def _pip_download(spec, dest_dir, plat=None, pyver_dotted=None, only_binary=None):
+    cmd = [
+        sys.executable,
+        "-m",
+        "pip",
+        "download",
+        "--dest",
+        dest_dir,
+        "--no-deps",
+    ]
+    if plat:
+        cmd.extend(["--platform", plat])
+    if pyver_dotted:
+        cmd.extend(["--python-version", pyver_dotted])
+    if only_binary is True:
+        cmd.append("--only-binary=:all:")
+    elif only_binary is False:
+        cmd.extend(["--no-binary", ":all:"])
+    cmd.append(spec)
+    return subprocess.run(cmd, capture_output=True, text=True)
+
+
+def _try_newer_version(package, cur_version, dest_dir, plat, pyver_dotted):
+    """Try to find a newer version of package with binary wheels for the target."""
+    try:
+        r = subprocess.run(
+            [sys.executable, "-m", "pip", "index", "versions", package],
+            capture_output=True, text=True, timeout=30,
+        )
+        if r.returncode != 0:
+            return None
+
+        m = re.search(r"Available versions: (.+)", r.stdout)
+        if not m:
+            return None
+
+        versions = [v.strip() for v in m.group(1).split(",")]
+        try:
+            cur_idx = versions.index(cur_version)
+        except ValueError:
+            cur_idx = -1
+        if cur_idx <= 0:
+            return None
+
+        for ver in versions[:cur_idx]:
+            new_spec = f"{package}=={ver}"
+            result = _pip_download(
+                new_spec, dest_dir, plat, pyver_dotted, only_binary=True,
+            )
+            if result.returncode == 0:
+                return ver
+    except Exception:
+        pass
+    return None
 
 
 def download_wheels(
@@ -50,63 +110,55 @@ def download_wheels(
     failures = []
     successes = []
     spec = f"{package}=={version}"
+    sdist_grabbed = False
 
     for plat in platforms:
         for pyver in python_versions:
-            if _wheel_exists(package, version, dest_dir, plat):
+            if _wheel_exists(package, version, dest_dir, plat, pyver):
                 successes.append((plat, pyver, "binary"))
                 continue
+
             pyver_dotted = f"{pyver[0]}.{pyver[1:]}"
-            cmd = [
-                sys.executable,
-                "-m",
-                "pip",
-                "download",
-                "--dest",
-                dest_dir,
-                "--platform",
-                plat,
-                "--python-version",
-                pyver_dotted,
-                "--only-binary=:all:",
-                "--no-deps",
-                spec,
-            ]
-            result = subprocess.run(cmd, capture_output=True, text=True)
+
+            # Layer 1 — pre-built binary wheel
+            result = _pip_download(spec, dest_dir, plat, pyver_dotted, only_binary=True)
             if result.returncode == 0:
                 successes.append((plat, pyver, "binary"))
-            else:
-                if no_binary_fallback:
-                    cmd_fallback = [
-                        sys.executable,
-                        "-m",
-                        "pip",
-                        "download",
-                        "--dest",
-                        dest_dir,
-                        "--platform",
-                        plat,
-                        "--python-version",
-                        pyver_dotted,
-                        spec,
-                    ]
-                    result2 = subprocess.run(
-                        cmd_fallback, capture_output=True, text=True
-                    )
-                    if result2.returncode == 0:
-                        successes.append((plat, pyver, "source"))
-                        _warn(
-                            f"{package}=={version}: no binary wheel for "
-                            f"{plat}/{pyver}, using source dist"
-                        )
-                    else:
-                        failures.append((plat, pyver, result2.stderr))
-                        _warn(
-                            f"{package}=={version}: no wheel available for "
-                            f"{plat}/{pyver}"
-                        )
-                else:
-                    failures.append((plat, pyver, result.stderr))
+                continue
+
+            if not no_binary_fallback:
+                failures.append((plat, pyver, "no binary wheel"))
+                _warn(f"{spec}: no binary for {plat}/{pyver}")
+                continue
+
+            # Layer 2 — platform-constrained source dist
+            result = _pip_download(spec, dest_dir, plat, pyver_dotted)
+            if result.returncode == 0:
+                successes.append((plat, pyver, "source"))
+                _warn(f"{spec}: no binary for {plat}/{pyver}, using source dist")
+                continue
+
+            # Layer 3 — unconstrained sdist (Fix 1: Eel-like cases)
+            if not sdist_grabbed:
+                result = _pip_download(spec, dest_dir, only_binary=False)
+                if result.returncode == 0:
+                    sdist_grabbed = True
+                    successes.append((plat, pyver, "source"))
+                    _warn(f"{spec}: no compatible dist for {plat}/{pyver}, using sdist")
+                    continue
+
+            # Layer 4 — newer version with binary wheels (Fix 2: msgpack-like cases)
+            bumped = _try_newer_version(package, version, dest_dir, plat, pyver_dotted)
+            if bumped:
+                successes.append((plat, pyver, "binary"))
+                _warn(
+                    f"{spec}: no wheel for {plat}/{pyver}, "
+                    f"using {package}=={bumped} instead"
+                )
+                continue
+
+            failures.append((plat, pyver, "no distribution found"))
+            _warn(f"{spec}: no distribution available for {plat}/{pyver}")
 
     return successes, failures
 

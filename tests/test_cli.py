@@ -57,6 +57,7 @@ class TestCmdUpdate:
                 package="testpkg",
                 packages=None,
                 platforms=None,
+                python_versions=None,
                 snapshot=False,
             )
             cmd_update(args)

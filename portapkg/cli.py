@@ -60,12 +60,13 @@ def cmd_bundle(args):
             _bundle_snapshot(pkg)
         else:
             platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
-            _bundle_multi(pkg, platforms, DEFAULT_PYTHON_VERSIONS)
+            python_versions = args.python_versions.split(",") if args.python_versions else DEFAULT_PYTHON_VERSIONS
+            _bundle_multi(pkg, platforms, python_versions)
 
 
 def _bundle_multi(package, platforms, python_versions):
     print(f"Resolving dependencies for {package}...")
-    deps = resolve_dependencies(package)
+    deps = resolve_dependencies(package, platforms=platforms)
     print(f"Found {len(deps)} package(s): {', '.join(deps.keys())}")
 
     pkg_key = package.lower().replace("_", "-")
@@ -101,10 +102,10 @@ def _bundle_multi(package, platforms, python_versions):
     _print_wheel_summary(wheels_dir)
 
     if all_failures:
-        print(f"\nWarnings: {len(all_failures)} package(s) had missing platforms")
+        print(f"\nWarnings: {len(all_failures)} package(s) had incomplete coverage")
         for pkg, fails in all_failures.items():
             for plat, pyver, _ in fails:
-                print(f"  {pkg}: no wheel for {plat}/py{pyver}")
+                print(f"  {pkg}: no distribution for {plat}/py{pyver}")
 
 
 def _bundle_snapshot(package):
@@ -299,7 +300,8 @@ def cmd_update(args):
             _bundle_snapshot(pkg)
         else:
             platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
-            _bundle_multi(pkg, platforms, DEFAULT_PYTHON_VERSIONS)
+            python_versions = args.python_versions.split(",") if args.python_versions else DEFAULT_PYTHON_VERSIONS
+            _bundle_multi(pkg, platforms, python_versions)
 
 
 def main():
@@ -318,6 +320,13 @@ def main():
             "Comma-separated platform tags. "
             f"Valid: {', '.join(DEFAULT_PLATFORMS)}. "
             "Default: all of them."
+        ),
+    )
+    p_bundle.add_argument(
+        "--python-versions",
+        help=(
+            "Comma-separated Python versions (e.g. 39,313). "
+            f"Default: {', '.join(DEFAULT_PYTHON_VERSIONS)}."
         ),
     )
     p_bundle.add_argument("--snapshot", action="store_true", help="Snapshot current env (single-platform)")
@@ -346,6 +355,13 @@ def main():
             "Comma-separated platform tags. "
             f"Valid: {', '.join(DEFAULT_PLATFORMS)}. "
             "Default: all of them."
+        ),
+    )
+    p_update.add_argument(
+        "--python-versions",
+        help=(
+            "Comma-separated Python versions (e.g. 39,313). "
+            f"Default: {', '.join(DEFAULT_PYTHON_VERSIONS)}."
         ),
     )
     p_update.add_argument("--snapshot", action="store_true", help="Snapshot mode")
