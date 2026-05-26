@@ -19,7 +19,6 @@ import string
 import subprocess
 import sys
 
-
 VERSION = "0.3.0"
 
 
@@ -44,7 +43,11 @@ def _detect_platform():
     elif system == "linux":
         return "linux_aarch64" if machine in ("aarch64", "arm64") else "linux_x86_64"
     elif system == "darwin":
-        return "macosx_13_0_arm64" if machine in ("arm64", "aarch64") else "macosx_13_0_x86_64"
+        return (
+            "macosx_13_0_arm64"
+            if machine in ("arm64", "aarch64")
+            else "macosx_13_0_x86_64"
+        )
     return f"{system}_{machine}"
 
 
@@ -119,7 +122,8 @@ def _resolve_install_packages(args):
         if not os.path.isdir(BUNDLES_DIR):
             return []
         return sorted(
-            d for d in os.listdir(BUNDLES_DIR)
+            d
+            for d in os.listdir(BUNDLES_DIR)
             if os.path.isdir(os.path.join(BUNDLES_DIR, d))
         )
     elif args.packages:
@@ -145,6 +149,14 @@ def _install_single(package, target):
     manifest = _read_manifest(bundle_dir)
     if manifest is None:
         print(f"ERROR: No manifest in {bundle_dir}", file=sys.stderr)
+        return False
+
+    if manifest.get("name") != package:
+        print(
+            f"ERROR: Package name mismatch: requested '{package}' "
+            f"but manifest declares '{manifest.get('name')}'.",
+            file=sys.stderr,
+        )
         return False
 
     cur_plat = _detect_platform()
@@ -321,9 +333,7 @@ def cmd_list(args):
     for name in bundles:
         m = _read_manifest(os.path.join(BUNDLES_DIR, name))
         if m:
-            print(
-                f"  {name}  v{m.get('version', '?')}  ({m.get('date_bundled', '?')})"
-            )
+            print(f"  {name}  v{m.get('version', '?')}  ({m.get('date_bundled', '?')})")
         else:
             print(f"  {name}  (no manifest)")
 
@@ -333,24 +343,32 @@ def main():
         prog="portapkg.py",
         description="Portable offline Python package installer",
     )
-    parser.add_argument(
-        "--version", action="version", version=f"portapkg.py {VERSION}"
-    )
+    parser.add_argument("--version", action="version", version=f"portapkg.py {VERSION}")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_install = sub.add_parser("install", help="Install one or more bundled packages")
     p_install.add_argument("packages", nargs="*", help="Package name(s) to install")
-    p_install.add_argument("--all", action="store_true", help="Install all available bundles")
+    p_install.add_argument(
+        "--all", action="store_true", help="Install all available bundles"
+    )
     p_install.add_argument(
         "--target", help="Custom install path (e.g. ./venv/Lib/site-packages)"
     )
     p_install.set_defaults(func=cmd_install)
 
     p_export = sub.add_parser("export", help="Export bundle(s) into a portable folder")
-    p_export.add_argument("package", nargs="?", help="Package name (single-package shortcut)")
-    p_export.add_argument("--name", help="Custom export folder name (default: package name or 'bundle')")
-    p_export.add_argument("--packages", help="Comma-separated list of packages to include")
-    p_export.add_argument("--output", "-o", help="Output directory (default: current directory)")
+    p_export.add_argument(
+        "package", nargs="?", help="Package name (single-package shortcut)"
+    )
+    p_export.add_argument(
+        "--name", help="Custom export folder name (default: package name or 'bundle')"
+    )
+    p_export.add_argument(
+        "--packages", help="Comma-separated list of packages to include"
+    )
+    p_export.add_argument(
+        "--output", "-o", help="Output directory (default: current directory)"
+    )
     p_export.set_defaults(func=cmd_export)
 
     p_list = sub.add_parser("list", help="List available bundles")
