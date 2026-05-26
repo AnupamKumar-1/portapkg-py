@@ -1,7 +1,7 @@
 # Exporting bundles
 
-The `export` command packages a bundle and the standalone installer into
-a single portable folder — ready to copy to a USB drive and ship.
+The `export` command packages one or more bundles together with the standalone
+installer into a single portable folder — ready to copy to a USB drive and ship.
 
 ## Why export?
 
@@ -10,26 +10,47 @@ creates a tidy, timestamped folder that includes everything the offline machine
 needs:
 
 ```
-instrumation_a3f2e6_2026-05-26/
+mydev_a3f2e6_2026-05-26/
 ├── portapkg.py          ← standalone installer (stdlib only)
 └── bundles/
-    └── instrumation/
+    ├── pyserial/
+    │   ├── manifest.json
+    │   └── wheels/
+    └── pyvisa/
         ├── manifest.json
         └── wheels/
-            └── ...
 ```
 
 ## Usage
 
-You must have already [bundled](usage.md#bundling-packages) the package before
-exporting it.
+You must have already [bundled](usage.md#bundling-packages) the packages before
+exporting them.
+
+### Export a single package
 
 ```bash
-# Export a bundle for distribution
-portapkg export instrumation
+portapkg export pyserial
+# Creates: pyserial_abc123_2026-05-26/
+```
 
-# Export to a specific directory
-portapkg export instrumation --output ./dist
+### Export multiple packages under a custom name
+
+```bash
+portapkg export --name mydev --packages pyserial,pyvisa,pyvisa-py
+# Creates: mydev_abc123_2026-05-26/
+```
+
+### Export multiple packages with auto-generated name
+
+```bash
+portapkg export --packages pyserial,pyvisa
+# Creates: bundle_abc123_2026-05-26/
+```
+
+### Export to a specific directory
+
+```bash
+portapkg export --name mydev --packages pyserial,pyvisa --output ./dist
 ```
 
 ## How the folder is named
@@ -37,21 +58,27 @@ portapkg export instrumation --output ./dist
 The export folder is named automatically as:
 
 ```
-{package}_{short_id}_{today_date}
+{name}_{short_id}_{today_date}
 ```
 
 | Part | Description | Example |
 |---|---|---|
-| `package` | The package name | `instrumation` |
+| `name` | The export name (`--name`, package, or `"bundle"`) | `mydev` |
 | `short_id` | A random 6-character hex string | `a3f2e6` |
 | `today_date` | Today's date in ISO format | `2026-05-26` |
+
+The name comes from (in order of priority):
+
+1. `--name` flag (always used if provided)
+2. Single package name (if exporting one package)
+3. `"bundle"` (fallback for multi-package exports without `--name`)
 
 ## What's inside
 
 | File / folder | Purpose |
 |---|---|
 | `portapkg.py` | The standalone offline installer — no dependencies, stdlib only |
-| `bundles/{package}/` | The bundle manifest and wheels |
+| `bundles/{package}/` | Each package's bundle manifest and wheels |
 | `bundles/{package}/manifest.json` | Metadata (version, deps, platform info) |
 | `bundles/{package}/wheels/` | All downloaded wheel files |
 
@@ -60,13 +87,14 @@ The export folder is named automatically as:
 ```bash
 # Copy the entire folder to the offline machine, then:
 
-cd instrumation_a3f2e6_2026-05-26/
+cd mydev_abc123_2026-05-26/
 
 # List available bundles
 python portapkg.py list
 
-# Install the package (no internet needed)
-python portapkg.py install instrumation
+# Install a package (no internet needed)
+python portapkg.py install pyserial
+python portapkg.py install pyvisa
 ```
 
 ## Using portapkg.py from source as an alternative
@@ -79,19 +107,15 @@ use the `portapkg.py` file directly from the source repository:
 git clone https://github.com/abduznik/portapkg-py
 cd portapkg-py
 
-# Use the module directly (no pip install needed!)
-python3 -m portapkg.cli bundle instrumation
-python3 -m portapkg.cli list
-python3 -m portapkg.cli info instrumation
-
-# Export using the standalone file
-PORTAPKG_BUNDLES_DIR=./bundles python3 portapkg.py export instrumation
+# Bundle and export without pip install
+python3 portapkg.py bundle pyserial
+python3 portapkg.py bundle pyvisa
+python3 portapkg.py export --name mydev --packages pyserial,pyvisa
 ```
 
 !!! tip "No install required"
-    The `portapkg.py` script is fully self-contained. You can use it both for
-    **bundling** (on an online machine with pip) and **installing** (on an
-    offline machine with pip). Just make sure `pip` is available on both ends.
+    The `portapkg.py` script is fully self-contained. Use it for **bundling**
+    (online), **exporting**, and **installing** (offline).
 
 ## Environment variables
 

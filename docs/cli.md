@@ -40,23 +40,34 @@ Show details about a specific bundle.
 portapkg info instrumation
 ```
 
-#### `portapkg export <package>`
+#### `portapkg export [package]`
 
-Bundle + standalone installer into a portable folder.
+Export one or more bundles + standalone installer into a portable folder.
 
 ```bash
+# Single package (positional)
 portapkg export instrumation
+
+# Multiple packages with custom name
+portapkg export --name mydev --packages pyserial,pyvisa,pyvisa-py
+
+# Auto-generated name for multiple packages
+portapkg export --packages pyserial,pyvisa
+
+# To a specific directory
 portapkg export instrumation --output ./dist
 ```
 
-Creates `{package}_{random_id}_{date}/` with `portapkg.py` + `bundles/{package}/`
+Creates `{name}_{random_id}_{date}/` with `portapkg.py` + `bundles/{package(s)}/`
 inside — ready to ship.
 
 **Options:**
 
 | Flag | Description |
 |---|---|
-| `package` | Package name (positional, required) |
+| `package` | Package name (positional, optional if `--packages` used) |
+| `--name` | Custom export folder name (default: package name or `"bundle"`) |
+| `--packages` | Comma-separated list of packages to include |
 | `--output`, `-o` | Output directory (default: current directory) |
 
 #### `portapkg update <package>`
@@ -100,12 +111,18 @@ python portapkg.py bundle instrumation --platforms win_amd64,macosx_13_0_arm64
 python portapkg.py bundle instrumation --snapshot
 ```
 
-#### `python portapkg.py export <package>`
+#### `python portapkg.py export [package]`
 
-Export a bundle into a portable folder.
+Export one or more bundles into a portable folder.
 
 ```bash
+# Single package
 python portapkg.py export instrumation
+
+# Multiple packages with custom name
+python portapkg.py export --name mydev --packages pyserial,pyvisa
+
+# To a specific directory
 python portapkg.py export instrumation --output ./dist
 ```
 

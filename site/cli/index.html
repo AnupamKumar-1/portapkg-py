@@ -905,12 +905,21 @@
 <p>Show details about a specific bundle.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>portapkg<span class="w"> </span>info<span class="w"> </span>instrumation
 </code></pre></div>
-<h4 id="portapkg-export-package"><code>portapkg export &lt;package&gt;</code><a class="headerlink" href="#portapkg-export-package" title="Permanent link">&para;</a></h4>
-<p>Bundle + standalone installer into a portable folder.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation<span class="w"> </span>--output<span class="w"> </span>./dist
+<h4 id="portapkg-export-package"><code>portapkg export [package]</code><a class="headerlink" href="#portapkg-export-package" title="Permanent link">&para;</a></h4>
+<p>Export one or more bundles + standalone installer into a portable folder.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Single package (positional)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Multiple packages with custom name</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--name<span class="w"> </span>mydev<span class="w"> </span>--packages<span class="w"> </span>pyserial,pyvisa,pyvisa-py
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Auto-generated name for multiple packages</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--packages<span class="w"> </span>pyserial,pyvisa
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># To a specific directory</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>portapkg<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation<span class="w"> </span>--output<span class="w"> </span>./dist
 </code></pre></div>
-<p>Creates <code>{package}_{random_id}_{date}/</code> with <code>portapkg.py</code> + <code>bundles/{package}/</code>
+<p>Creates <code>{name}_{random_id}_{date}/</code> with <code>portapkg.py</code> + <code>bundles/{package(s)}/</code>
 inside — ready to ship.</p>
 <p><strong>Options:</strong></p>
 <table>
@@ -923,7 +932,15 @@ inside — ready to ship.</p>
 <tbody>
 <tr>
 <td><code>package</code></td>
-<td>Package name (positional, required)</td>
+<td>Package name (positional, optional if <code>--packages</code> used)</td>
+</tr>
+<tr>
+<td><code>--name</code></td>
+<td>Custom export folder name (default: package name or <code>"bundle"</code>)</td>
+</tr>
+<tr>
+<td><code>--packages</code></td>
+<td>Comma-separated list of packages to include</td>
 </tr>
 <tr>
 <td><code>--output</code>, <code>-o</code></td>
@@ -975,10 +992,16 @@ machine with Python and pip. No <code>pip install portapkg</code> needed.</p>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>bundle<span class="w"> </span>instrumation<span class="w"> </span>--platforms<span class="w"> </span>win_amd64,macosx_13_0_arm64
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span>bundle<span class="w"> </span>instrumation<span class="w"> </span>--snapshot
 </code></pre></div>
-<h4 id="python-portapkgpy-export-package"><code>python portapkg.py export &lt;package&gt;</code><a class="headerlink" href="#python-portapkgpy-export-package" title="Permanent link">&para;</a></h4>
-<p>Export a bundle into a portable folder.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation<span class="w"> </span>--output<span class="w"> </span>./dist
+<h4 id="python-portapkgpy-export-package"><code>python portapkg.py export [package]</code><a class="headerlink" href="#python-portapkgpy-export-package" title="Permanent link">&para;</a></h4>
+<p>Export one or more bundles into a portable folder.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Single package</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Multiple packages with custom name</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--name<span class="w"> </span>mydev<span class="w"> </span>--packages<span class="w"> </span>pyserial,pyvisa
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># To a specific directory</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>python<span class="w"> </span>portapkg.py<span class="w"> </span><span class="nb">export</span><span class="w"> </span>instrumation<span class="w"> </span>--output<span class="w"> </span>./dist
 </code></pre></div>
 <h4 id="python-portapkgpy-install-package"><code>python portapkg.py install &lt;package&gt;</code><a class="headerlink" href="#python-portapkgpy-install-package" title="Permanent link">&para;</a></h4>
 <p>Install a bundled package.</p>

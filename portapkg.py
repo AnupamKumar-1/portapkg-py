@@ -190,19 +190,33 @@ def cmd_install(args):
 
 
 def cmd_export(args):
-    """Export a bundle + this script into a portable folder."""
-    bundle_src = os.path.join(BUNDLES_DIR, args.package)
-    if not os.path.isdir(bundle_src):
-        print(
-            f"ERROR: Bundle for '{args.package}' not found in {BUNDLES_DIR}.\n"
-            f"Bundle it first: python {os.path.basename(__file__)} bundle {args.package}",
-            file=sys.stderr,
-        )
+    """Export bundle(s) + this script into a portable folder."""
+    # Determine which packages to export
+    if args.packages:
+        packages = [p.strip() for p in args.packages.split(",") if p.strip()]
+    elif args.package:
+        packages = [args.package]
+    else:
+        print("ERROR: specify a package or --packages to export.", file=sys.stderr)
         return 1
+
+    # Determine the export name
+    export_name = args.name or (args.package if args.package else "bundle")
+
+    # Validate all bundles exist
+    for pkg in packages:
+        bundle_src = os.path.join(BUNDLES_DIR, pkg)
+        if not os.path.isdir(bundle_src):
+            print(
+                f"ERROR: Bundle for '{pkg}' not found in {BUNDLES_DIR}.\n"
+                f"Bundle it first: python {os.path.basename(__file__)} bundle {pkg}",
+                file=sys.stderr,
+            )
+            return 1
 
     today = datetime.date.today().isoformat()
     rand_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
-    folder_name = f"{args.package}_{rand_id}_{today}"
+    folder_name = f"{export_name}_{rand_id}_{today}"
 
     output_parent = os.path.abspath(args.output) if args.output else os.getcwd()
     output_dir = os.path.join(output_parent, folder_name)
@@ -211,7 +225,7 @@ def cmd_export(args):
         print(f"ERROR: {output_dir} already exists.", file=sys.stderr)
         return 1
 
-    # Build structure: {output_dir}/portapkg.py + bundles/{package}/
+    # Build structure: {output_dir}/portapkg.py + bundles/{pkg1, pkg2, ...}/
     bundles_out = os.path.join(output_dir, "bundles")
     os.makedirs(bundles_out, exist_ok=True)
 
@@ -219,9 +233,11 @@ def cmd_export(args):
     script_path = os.path.abspath(__file__)
     shutil.copy2(script_path, os.path.join(output_dir, os.path.basename(__file__)))
 
-    # Copy bundle
-    pkg_out = os.path.join(bundles_out, args.package)
-    shutil.copytree(bundle_src, pkg_out)
+    # Copy each bundle
+    for pkg in packages:
+        bundle_src = os.path.join(BUNDLES_DIR, pkg)
+        pkg_out = os.path.join(bundles_out, pkg)
+        shutil.copytree(bundle_src, pkg_out)
 
     # Calculate size
     total_bytes = 0
@@ -236,7 +252,9 @@ def cmd_export(args):
     print(f"  Size: {size_mb:.1f} MB")
     print("  Contents:")
     print(f"    {output_dir}/{os.path.basename(__file__)}")
-    print(f"    {output_dir}/bundles/{args.package}/")
+    print(f"    {output_dir}/bundles/")
+    for pkg in packages:
+        print(f"      {pkg}/")
     return 0
 
 
@@ -277,8 +295,10 @@ def main():
     )
     p_install.set_defaults(func=cmd_install)
 
-    p_export = sub.add_parser("export", help="Export a bundle into a portable folder")
-    p_export.add_argument("package", help="Package name")
+    p_export = sub.add_parser("export", help="Export bundle(s) into a portable folder")
+    p_export.add_argument("package", nargs="?", help="Package name (single-package shortcut)")
+    p_export.add_argument("--name", help="Custom export folder name (default: package name or 'bundle')")
+    p_export.add_argument("--packages", help="Comma-separated list of packages to include")
     p_export.add_argument("--output", "-o", help="Output directory (default: current directory)")
     p_export.set_defaults(func=cmd_export)
 

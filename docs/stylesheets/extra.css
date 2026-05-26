@@ -1,40 +1,40 @@
-/* ===== Custom Color Palette ===== */
+/* ===== Custom Color Palette — Ocean Blue ===== */
 :root {
-  --md-primary-fg-color: #7c3aed;
-  --md-primary-fg-color--light: #a78bfa;
-  --md-primary-fg-color--dark: #5b21b6;
+  --md-primary-fg-color: #2563eb;
+  --md-primary-fg-color--light: #60a5fa;
+  --md-primary-fg-color--dark: #1d4ed8;
   --md-primary-bg-color: #ffffff;
-  --md-primary-bg-color--light: #f5f3ff;
+  --md-primary-bg-color--light: #eff6ff;
 
-  --md-accent-fg-color: #f59e0b;
-  --md-accent-fg-color--light: #fbbf24;
-  --md-accent-fg-color--dark: #d97706;
-  --md-accent-bg-color: #1e1b4b;
-  --md-accent-bg-color--light: #312e81;
+  --md-accent-fg-color: #06b6d4;
+  --md-accent-fg-color--light: #22d3ee;
+  --md-accent-fg-color--dark: #0891b2;
+  --md-accent-bg-color: #0c4a6e;
+  --md-accent-bg-color--light: #0e7490;
 
-  --md-typeset-a-color: #a78bfa;
+  --md-typeset-a-color: #3b82f6;
 
-  --md-footer-bg-color: #0f0a1e;
-  --md-footer-bg-color--dark: #080515;
+  --md-footer-bg-color: #0f172a;
+  --md-footer-bg-color--dark: #0a0f1e;
 }
 
-/* ===== Animated Gradient Body Background ===== */
+/* ===== Brighter Animated Gradient Body Background ===== */
 [data-md-color-scheme="slate"] {
-  --md-hue: 250;
+  --md-hue: 210;
   --md-default-bg-color: linear-gradient(
     135deg,
-    #0f0a1e 0%,
-    #1a1040 25%,
-    #0f2027 50%,
-    #1a1040 75%,
-    #0f0a1e 100%
+    #1e293b 0%,
+    #1e3a5f 25%,
+    #1a365d 50%,
+    #1e3a5f 75%,
+    #1e293b 100%
   );
 }
 
 body {
-  background: linear-gradient(-45deg, #0f0a1e, #1a1040, #0f2027, #1a1040, #0f0a1e);
+  background: linear-gradient(-45deg, #1e293b, #1e3a5f, #1a365d, #1e3a5f, #1e293b);
   background-size: 400% 400%;
-  animation: gradient-shift 20s ease infinite;
+  animation: gradient-shift 25s ease infinite;
   min-height: 100vh;
 }
 
@@ -48,10 +48,10 @@ body {
 
 /* ===== Glassmorphism Hero Card for Homepage ===== */
 .md-typeset .hero {
-  background: rgba(124, 58, 237, 0.08);
+  background: rgba(37, 99, 235, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(167, 139, 250, 0.15);
+  border: 1px solid rgba(96, 165, 250, 0.15);
   border-radius: 24px;
   padding: 2rem 2.5rem;
   margin: 1rem 0 2rem 0;
@@ -66,13 +66,13 @@ body {
   right: -50%;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 70%);
   pointer-events: none;
 }
 
 .md-typeset .hero h1 {
   margin-top: 0;
-  background: linear-gradient(135deg, #a78bfa, #f59e0b);
+  background: linear-gradient(135deg, #60a5fa, #06b6d4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -81,7 +81,7 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* ===== Feature Cards (grid of 3) ===== */
+/* ===== Feature Cards (grid) ===== */
 .md-typeset .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -90,10 +90,10 @@ body {
 }
 
 .md-typeset .feature-card {
-  background: rgba(124, 58, 237, 0.06);
+  background: rgba(37, 99, 235, 0.06);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.12);
   border-radius: 16px;
   padding: 1.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -103,9 +103,9 @@ body {
 
 .md-typeset .feature-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(167, 139, 250, 0.3);
-  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.15);
-  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(96, 165, 250, 0.3);
+  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.15);
+  background: rgba(37, 99, 235, 0.1);
 }
 
 .md-typeset .feature-card .feature-icon {
@@ -123,12 +123,12 @@ body {
 .md-typeset .feature-card p {
   margin: 0;
   font-size: 0.9rem;
-  opacity: 0.85;
+  color: #cbd5e1;
 }
 
 /* ===== Gradient Text on Headers ===== */
 .md-typeset h1 {
-  background: linear-gradient(135deg, #a78bfa 0%, #f59e0b 100%);
+  background: linear-gradient(135deg, #60a5fa 0%, #06b6d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -136,20 +136,20 @@ body {
 }
 
 .md-typeset h2 {
-  color: #c4b5fd;
+  color: #93c5fd;
   font-weight: 700;
-  border-bottom: 2px solid rgba(167, 139, 250, 0.15);
+  border-bottom: 2px solid rgba(96, 165, 250, 0.15);
   padding-bottom: 0.3rem;
 }
 
 .md-typeset h3 {
-  color: #a78bfa;
+  color: #60a5fa;
   font-weight: 600;
 }
 
 /* ===== Code Block Styling ===== */
 .md-typeset pre > code {
-  border: 1px solid rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.1);
   border-radius: 12px;
 }
 
@@ -161,11 +161,11 @@ body {
 .md-typeset .admonition,
 .md-typeset details {
   border-radius: 12px;
-  border: 1px solid rgba(167, 139, 250, 0.12);
-  background: rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(96, 165, 250, 0.12);
+  background: rgba(37, 99, 235, 0.04);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* ===== Navigation ===== */
@@ -183,34 +183,34 @@ body {
 .md-typeset table:not(.highlighttable) {
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(167, 139, 250, 0.1);
-  background: rgba(124, 58, 237, 0.03);
+  border: 1px solid rgba(96, 165, 250, 0.1);
+  background: rgba(37, 99, 235, 0.03);
 }
 
 .md-typeset table:not(.highlighttable) th {
-  background: rgba(124, 58, 237, 0.15);
-  color: #c4b5fd;
+  background: rgba(37, 99, 235, 0.15);
+  color: #93c5fd;
   font-weight: 700;
 }
 
 .md-typeset table:not(.highlighttable) tr:hover {
-  background: rgba(124, 58, 237, 0.06);
+  background: rgba(37, 99, 235, 0.06);
 }
 
 /* ===== Footer ===== */
 .md-footer-meta {
-  background: rgba(8, 5, 21, 0.8) !important;
+  background: rgba(15, 23, 42, 0.85) !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(167, 139, 250, 0.08);
+  border-top: 1px solid rgba(96, 165, 250, 0.08);
 }
 
 /* ===== Header ===== */
 .md-header {
-  background: rgba(15, 10, 30, 0.85) !important;
+  background: rgba(15, 23, 42, 0.85) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(167, 139, 250, 0.08);
+  border-bottom: 1px solid rgba(96, 165, 250, 0.08);
 }
 
 /* ===== Tabbed Content ===== */
@@ -222,21 +222,21 @@ body {
 /* ===== Keyboard Keys ===== */
 .md-typeset kbd {
   border-radius: 6px;
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  color: #c4b5fd;
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  color: #93c5fd;
   font-size: 0.8em;
   padding: 0.2em 0.5em;
 }
 
 /* ===== Content Tabs ===== */
 .md-typeset .tabbed-labels {
-  background: rgba(124, 58, 237, 0.04);
-  border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+  background: rgba(37, 99, 235, 0.04);
+  border-bottom: 1px solid rgba(96, 165, 250, 0.1);
 }
 
 .md-typeset .tabbed-labels > label {
-  color: #9ca3af;
+  color: #94a3b8;
   transition: color 0.2s;
 }
 
@@ -251,16 +251,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 10, 30, 0.5);
+  background: rgba(15, 23, 42, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(124, 58, 237, 0.3);
+  background: rgba(37, 99, 235, 0.3);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(124, 58, 237, 0.5);
+  background: rgba(37, 99, 235, 0.5);
 }
 
 /* ===== Animations ===== */
@@ -285,40 +285,24 @@ body {
   }
 }
 
-/* ===== Workflow Table ===== */
-.md-typeset .workflow-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-.md-typeset .workflow-table th {
-  text-align: center;
-}
-
-.md-typeset .workflow-table td {
-  text-align: center;
-  vertical-align: top;
-}
-
 /* ===== Badge/Pill Styling ===== */
 .md-typeset .badge {
   display: inline-block;
   padding: 0.15em 0.6em;
-  background: rgba(124, 58, 237, 0.15);
-  border: 1px solid rgba(167, 139, 250, 0.2);
+  background: rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(96, 165, 250, 0.2);
   border-radius: 9999px;
   font-size: 0.75em;
   font-weight: 600;
-  color: #c4b5fd;
+  color: #93c5fd;
 }
 
 /* ===== Terminal Block Enhancements ===== */
 .md-typeset .highlight .gp { /* prompt */
-  color: #f59e0b;
+  color: #06b6d4;
   font-weight: 600;
 }
 
 .md-typeset .highlight .go { /* output */
-  color: #9ca3af;
+  color: #94a3b8;
 }
