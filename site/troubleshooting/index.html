@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://abduznik.github.io/portapkg-py/development/">
+        <link rel="canonical" href="https://abduznik.github.io/portapkg-py/troubleshooting/">
       
       
-        <link rel="prev" href="../faq/">
+        <link rel="prev" href="../configuration/">
       
       
-        <link rel="next" href="../changelog/">
+        <link rel="next" href="../faq/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Development - portapkg</title>
+        <title>Troubleshooting - portapkg</title>
       
     
     
@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#development" class="md-skip">
+        <a href="#troubleshooting" class="md-skip">
           Skip to content
         </a>
       
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Development
+              Troubleshooting
             
           </span>
         </div>
@@ -570,10 +570,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -589,6 +616,114 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#no-compatible-wheel-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "No compatible wheel found"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-manifest-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "No manifest in ..."
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pip-is-not-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "pip is not available"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-platform-download-warnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-platform download warnings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#large-bundle-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Large bundle sizes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-bundles-found-after-copying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "No bundles found" after copying
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permission-errors-on-linuxmacos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permission errors on Linux/macOS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-fails-on-the-target-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation fails on the target machine
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -624,37 +759,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Development
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
         
   
   
@@ -670,103 +778,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Project structure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-tests" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running tests
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code-style" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Code style
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#building-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building documentation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#making-a-release" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Making a release
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#design-principles" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Design principles
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -825,10 +836,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
+  <a href="#no-compatible-wheel-found" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project structure
+        "No compatible wheel found"
       
     </span>
   </a>
@@ -836,10 +847,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
+  <a href="#no-manifest-in" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup
+        "No manifest in ..."
       
     </span>
   </a>
@@ -847,10 +858,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-tests" class="md-nav__link">
+  <a href="#pip-is-not-available" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Running tests
+        "pip is not available"
       
     </span>
   </a>
@@ -858,10 +869,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-style" class="md-nav__link">
+  <a href="#multi-platform-download-warnings" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Code style
+        Multi-platform download warnings
       
     </span>
   </a>
@@ -869,10 +880,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-documentation" class="md-nav__link">
+  <a href="#large-bundle-sizes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Building documentation
+        Large bundle sizes
       
     </span>
   </a>
@@ -880,10 +891,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#making-a-release" class="md-nav__link">
+  <a href="#no-bundles-found-after-copying" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Making a release
+        "No bundles found" after copying
       
     </span>
   </a>
@@ -891,10 +902,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-principles" class="md-nav__link">
+  <a href="#permission-errors-on-linuxmacos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design principles
+        Permission errors on Linux/macOS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-fails-on-the-target-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation fails on the target machine
       
     </span>
   </a>
@@ -929,80 +951,87 @@
   
 
 
-<h1 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h1>
-<h2 id="project-structure">Project structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>portapkg/
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── portapkg.py                ← standalone offline installer (stdlib only)
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── portapkg/
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── __init__.py            ← version
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── cli.py                 ← entrypoint: bundle/list/info/update
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── bundler/
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   │   ├── fetch.py           ← multi-platform wheel download
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   │   ├── manifest.py        ← manifest.json read/write
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   │   └── resolver.py        ← dependency resolution
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   └── installer/
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│       ├── install.py         ← offline install logic
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│       └── platform.py        ← OS/arch/python detection
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── tests/                     ← pytest test suite
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── docs/                      ← documentation site (MkDocs)
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├── pyproject.toml             ← packaging &amp; tool config
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>└── .github/workflows/         ← CI / release / docs workflows
-</code></pre></div>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/abduznik/portapkg-py
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>portapkg-py
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Install in editable mode with dev dependencies</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Install docs dependencies (optional)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>pip<span class="w"> </span>install<span class="w"> </span>mkdocs<span class="w"> </span>mkdocs-material
-</code></pre></div>
-<h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Run all tests</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pytest
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># With coverage</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pytest<span class="w"> </span>--cov<span class="o">=</span>portapkg<span class="w"> </span>--cov-report<span class="o">=</span>term-missing
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Run a specific test file</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>pytest<span class="w"> </span>tests/test_platform.py
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Run a specific test</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>pytest<span class="w"> </span>tests/test_platform.py::TestParseWheelFilename
-</code></pre></div>
-<h2 id="code-style">Code style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h2>
-<p>This project uses <a href="https://docs.astral.sh/ruff/">Ruff</a> for linting.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ruff
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ruff<span class="w"> </span>check<span class="w"> </span>portapkg/<span class="w"> </span>tests/<span class="w"> </span>portapkg.py
-</code></pre></div>
-<h2 id="building-documentation">Building documentation<a class="headerlink" href="#building-documentation" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Preview locally</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>mkdocs<span class="w"> </span>serve
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Build static site</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>mkdocs<span class="w"> </span>build
-</code></pre></div>
-<p>The documentation is automatically deployed to GitHub Pages on push to <code>main</code>
-via <code>.github/workflows/docs.yml</code>.</p>
-<h2 id="making-a-release">Making a release<a class="headerlink" href="#making-a-release" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Bump the version in <code>portapkg/__init__.py</code> and <code>pyproject.toml</code></li>
-<li>Commit and tag: <code>git tag v0.x.x &amp;&amp; git push --tags</code></li>
-<li>Trigger the <a href="https://github.com/abduznik/portapkg-py/actions/workflows/publish.yml">Publish workflow</a>
-   on GitHub, specifying the version tag</li>
-</ol>
-<p>The workflow builds wheels + sdist, publishes to PyPI, and creates a
-GitHub Release with the artifacts attached.</p>
-<h2 id="design-principles">Design principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h2>
+<h1 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h1>
+<h2 id="no-compatible-wheel-found">"No compatible wheel found"<a class="headerlink" href="#no-compatible-wheel-found" title="Permanent link">&para;</a></h2>
+<p>This means the bundle doesn't contain a wheel that matches your current OS,
+architecture, or Python version.</p>
+<p><strong>Solutions:</strong></p>
 <ul>
-<li><strong>Stdlib only</strong> — no third-party imports anywhere in the runtime code</li>
-<li><strong>Single-file fallback</strong> — <code>portapkg.py</code> must work with nothing but Python
-  and pip</li>
-<li><strong>Pip as engine</strong> — all heavy lifting (download, resolve, install) delegates
-  to pip; portapkg just orchestrates</li>
-<li><strong>Clear errors</strong> — every failure mode has a human-readable message with a
-  suggested fix</li>
+<li>Bundle with <code>--snapshot</code> on a machine with the same OS/Python as the target</li>
+<li>Bundle with all default platforms (don't use <code>--platforms</code> filter on a
+  platform the target machine doesn't match)</li>
+<li>Check the target machine's Python version: <code>python --version</code> — make sure
+  it's one of the Python versions you bundled for (default: 3.9–3.13)</li>
+</ul>
+<h2 id="no-manifest-in">"No manifest in ..."<a class="headerlink" href="#no-manifest-in" title="Permanent link">&para;</a></h2>
+<p>The bundle directory is missing a <code>manifest.json</code> file.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Delete the incomplete bundle and re-bundle</li>
+<li>Make sure the bundle completed without errors (check for "Bundle saved" message)</li>
+</ul>
+<h2 id="pip-is-not-available">"pip is not available"<a class="headerlink" href="#pip-is-not-available" title="Permanent link">&para;</a></h2>
+<p>The standalone <code>portapkg.py</code> uses pip under the hood for installation,
+but pip isn't installed on the target machine.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Install pip: <code>python -m ensurepip --upgrade</code></li>
+<li>On some minimal Linux distributions, install the <code>python3-pip</code> package via
+  the system package manager</li>
+</ul>
+<h2 id="multi-platform-download-warnings">Multi-platform download warnings<a class="headerlink" href="#multi-platform-download-warnings" title="Permanent link">&para;</a></h2>
+<p>When bundling, you may see warnings like:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pyvisa==1.16.2: no wheel available for win_amd64/39
+</code></pre></div>
+<p>This means the package doesn't publish wheels for that specific
+platform/Python combination. A source distribution (sdist) is used instead,
+which requires a C compiler on the target machine.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>These warnings are usually safe to ignore — pip will fall back to the sdist</li>
+<li>If installation fails on the target machine, try bundling with <code>--snapshot</code>
+  on a machine identical to the target</li>
+</ul>
+<h2 id="large-bundle-sizes">Large bundle sizes<a class="headerlink" href="#large-bundle-sizes" title="Permanent link">&para;</a></h2>
+<p>Bundles with many dependencies (like <code>auto-py-to-exe</code> or <code>flet</code>) can be
+large — up to hundreds of megabytes when bundling for all 6 platforms.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Use <code>--platforms</code> to target only the platforms you need</li>
+<li>Use <code>--snapshot</code> to bundle for just your current machine</li>
+<li>Only bundle the specific packages you actually need, and skip heavy
+  dev dependencies</li>
+</ul>
+<h2 id="no-bundles-found-after-copying">"No bundles found" after copying<a class="headerlink" href="#no-bundles-found-after-copying" title="Permanent link">&para;</a></h2>
+<p>You copied the <code>bundles/</code> folder to the offline machine, but <code>list</code> shows
+nothing.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Make sure the <code>bundles/</code> folder is in the same directory as <code>portapkg.py</code></li>
+<li>Or set <code>PORTAPKG_BUNDLES_DIR</code> to point to the correct location</li>
+<li>Verify the folder structure looks like:
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>bundles/
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>└── yourpackage/
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    ├── manifest.json
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    └── wheels/
+</code></pre></div></li>
+</ul>
+<h2 id="permission-errors-on-linuxmacos">Permission errors on Linux/macOS<a class="headerlink" href="#permission-errors-on-linuxmacos" title="Permanent link">&para;</a></h2>
+<p>The <code>portapkg.py</code> file needs execute permission to run directly.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Run with Python: <code>python3 portapkg.py install &lt;package&gt;</code></li>
+<li>Or make it executable: <code>chmod +x portapkg.py</code></li>
+</ul>
+<h2 id="installation-fails-on-the-target-machine">Installation fails on the target machine<a class="headerlink" href="#installation-fails-on-the-target-machine" title="Permanent link">&para;</a></h2>
+<p>The <code>pip install</code> step fails even though compatible wheels exist.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Make sure pip is up to date: <code>python -m pip install --upgrade pip</code></li>
+<li>Check for missing system dependencies (e.g., <code>libffi-dev</code> for <code>cffi</code>-based
+  packages)</li>
+<li>Try installing with verbose output: <code>python -m pip install --no-index
+  --find-links ./wheels &lt;package&gt; --verbose</code></li>
 </ul>
 
 

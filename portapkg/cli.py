@@ -37,13 +37,30 @@ def _print_wheel_summary(wheels_dir):
     print(f"  Total wheel files: {len(whls)}")
 
 
+def _resolve_packages(args):
+    """Resolve package list from --packages flag or positional package arg."""
+    if args.packages:
+        return [p.strip() for p in args.packages.split(",") if p.strip()]
+    elif args.package:
+        return [args.package]
+    return []
+
+
 def cmd_bundle(args):
     _ensure_bundles_dir()
-    if args.snapshot:
-        _bundle_snapshot(args.package)
-    else:
-        platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
-        _bundle_multi(args.package, platforms, DEFAULT_PYTHON_VERSIONS)
+    packages = _resolve_packages(args)
+    if not packages:
+        print("ERROR: specify a package or --packages to bundle.", file=sys.stderr)
+        return 1
+    for pkg in packages:
+        print(f"\n{'='*50}")
+        print(f"Bundling: {pkg}")
+        print(f"{'='*50}")
+        if args.snapshot:
+            _bundle_snapshot(pkg)
+        else:
+            platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
+            _bundle_multi(pkg, platforms, DEFAULT_PYTHON_VERSIONS)
 
 
 def _bundle_multi(package, platforms, python_versions):
@@ -270,11 +287,19 @@ def _dir_size(path):
 
 def cmd_update(args):
     _ensure_bundles_dir()
-    if args.snapshot:
-        _bundle_snapshot(args.package)
-    else:
-        platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
-        _bundle_multi(args.package, platforms, DEFAULT_PYTHON_VERSIONS)
+    packages = _resolve_packages(args)
+    if not packages:
+        print("ERROR: specify a package or --packages to update.", file=sys.stderr)
+        return 1
+    for pkg in packages:
+        print(f"\n{'='*50}")
+        print(f"Updating: {pkg}")
+        print(f"{'='*50}")
+        if args.snapshot:
+            _bundle_snapshot(pkg)
+        else:
+            platforms = args.platforms.split(",") if args.platforms else DEFAULT_PLATFORMS
+            _bundle_multi(pkg, platforms, DEFAULT_PYTHON_VERSIONS)
 
 
 def main():
@@ -284,8 +309,9 @@ def main():
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_bundle = sub.add_parser("bundle", help="Bundle a package for offline install")
-    p_bundle.add_argument("package", help="Package name")
+    p_bundle = sub.add_parser("bundle", help="Bundle a package (or multiple) for offline install")
+    p_bundle.add_argument("package", nargs="?", help="Package name (single-package shortcut)")
+    p_bundle.add_argument("--packages", help="Comma-separated list of packages to bundle")
     p_bundle.add_argument("--platforms", help="Comma-separated platforms (default: all 6)")
     p_bundle.add_argument("--snapshot", action="store_true", help="Snapshot current env (single-platform)")
     p_bundle.set_defaults(func=cmd_bundle)
@@ -304,8 +330,9 @@ def main():
     p_info.add_argument("package", help="Package name")
     p_info.set_defaults(func=cmd_info)
 
-    p_update = sub.add_parser("update", help="Re-fetch a bundle")
-    p_update.add_argument("package", help="Package name")
+    p_update = sub.add_parser("update", help="Re-fetch a bundle (or multiple)")
+    p_update.add_argument("package", nargs="?", help="Package name (single-package shortcut)")
+    p_update.add_argument("--packages", help="Comma-separated list of packages to update")
     p_update.add_argument("--platforms", help="Comma-separated platforms")
     p_update.add_argument("--snapshot", action="store_true", help="Snapshot mode")
     p_update.set_defaults(func=cmd_update)

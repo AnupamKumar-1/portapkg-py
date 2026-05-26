@@ -46,11 +46,16 @@ python3 portapkg.py export instrumation
 ### Basic bundling
 
 ```bash
+# Single package
 portapkg bundle instrumation
+
+# Multiple packages at once
+portapkg bundle --packages pyserial,pyvisa,pyvisa-py
 ```
 
-This downloads wheels for **6 platforms × 5 Python versions** (up to 30
-downloads per dependency). The output goes to `./bundles/instrumation/`.
+Single package downloads wheels for **6 platforms × 5 Python versions** (up to
+30 downloads per dependency). Multi-package bundles each one in sequence.
+The output goes to `./bundles/{package}/`.
 
 ### Specific platforms
 
@@ -94,11 +99,14 @@ portapkg list
 portapkg info instrumation
 ```
 
-### Update a bundle
+### Update bundles
 
 ```bash
-# Re-fetch a bundle with all platforms
+# Re-fetch a single bundle with all platforms
 portapkg update instrumation
+
+# Re-fetch multiple bundles at once
+portapkg update --packages pyserial,pyvisa
 
 # Re-fetch with specific platforms
 portapkg update instrumation --platforms win_amd64,linux_x86_64

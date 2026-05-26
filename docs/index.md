@@ -1,5 +1,3 @@
-<div class="hero">
-
 # portapkg
 
 **Portable, offline-friendly Python package bundler and installer.**
@@ -7,34 +5,18 @@
 Bundle a package and all its dependencies on an online machine, then install
 on an air-gapped machine with nothing but Python and pip.
 
-</div>
+---
 
-<div class="feature-grid">
-  <div class="feature-card">
-    <span class="feature-icon">🗜️</span>
-    <h3>No server needed</h3>
-    <p>Bundles are plain folders — copy them on a USB drive and you're done.</p>
-  </div>
-  <div class="feature-card">
-    <span class="feature-icon">🌐</span>
-    <h3>Multi-platform</h3>
-    <p>One bundle works across Windows, Linux, macOS, x86, and ARM.</p>
-  </div>
-  <div class="feature-card">
-    <span class="feature-icon">🧩</span>
-    <h3>Self-contained</h3>
-    <p>The standalone <code>portapkg.py</code> is stdlib only — zero dependencies.</p>
-  </div>
-  <div class="feature-card">
-    <span class="feature-icon">📦</span>
-    <h3>Export & ship</h3>
-    <p>One command creates a portable folder with everything you need.</p>
-  </div>
-</div>
+## Why portapkg?
+
+- **No server needed** — Bundles are plain folders. Copy them on a USB drive and you're done.
+- **Multi-platform** — One bundle works across Windows, Linux, macOS, x86, and ARM.
+- **Self-contained** — The standalone `portapkg.py` is stdlib only — zero dependencies.
+- **Export & ship** — One command creates a portable folder with everything you need.
 
 ## Quick start
 
-### 🔵 On an online machine
+### On an online machine
 
 ```bash
 pip install portapkg
@@ -43,7 +25,7 @@ portapkg bundle instrumation
 
 This creates a `bundles/` folder with wheels for all 6 platforms × 5 Python versions.
 
-### 🟢 On an offline machine
+### On an offline machine
 
 Copy `bundles/` and `portapkg.py` to a USB drive, then run:
 
@@ -52,7 +34,7 @@ python portapkg.py list
 python portapkg.py install instrumation
 ```
 
-### 🟠 Export as a portable package
+### Export as a portable package
 
 ```bash
 portapkg export instrumation
@@ -77,4 +59,5 @@ Creates `instrumation_a3f2e6_2026-05-26/` with `portapkg.py` + `bundles/` inside
 - [CLI reference](cli.md) — full command reference
 - [Export bundles](export.md) — package everything into one portable folder
 - [Configuration](configuration.md) — environment variables and options
+- [Troubleshooting](troubleshooting.md) — common issues and solutions
 - [Development](development.md) — contributing, testing, project structure

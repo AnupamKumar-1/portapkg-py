@@ -9,11 +9,8 @@ theme:
   name: material
   palette:
     scheme: slate
-    primary: custom
-    accent: custom
-  font:
-    text: Outfit
-    code: JetBrains Mono
+    primary: blue
+    accent: light blue
   features:
     - navigation.instant
     - navigation.tracking
@@ -36,9 +33,13 @@ nav:
     - CLI reference: cli.md
     - Standalone script: standalone.md
     - Export bundles: export.md
+    - Real-world example: realworld.md
   - Reference:
     - Configuration: configuration.md
+  - Troubleshooting: troubleshooting.md
+  - FAQ: faq.md
   - Development: development.md
+  - Changelog: changelog.md
 
 markdown_extensions:
   - admonition
@@ -61,9 +62,6 @@ markdown_extensions:
       toc_depth: 3
   - attr_list
   - md_in_html
-
-extra_css:
-  - stylesheets/extra.css
 
 extra:
   social:

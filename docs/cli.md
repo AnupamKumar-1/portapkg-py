@@ -6,13 +6,21 @@ The main CLI for bundling packages on an online machine.
 
 ### Commands
 
-#### `portapkg bundle <package>`
+#### `portapkg bundle [package]`
 
-Bundle a package for offline install.
+Bundle one or more packages for offline install.
 
 ```bash
+# Single package
 portapkg bundle instrumation
+
+# Multiple packages at once
+portapkg bundle --packages pyserial,pyvisa,pyvisa-py
+
+# With specific platforms
 portapkg bundle instrumation --platforms win_amd64,macosx_13_0_arm64
+
+# Snapshot mode
 portapkg bundle instrumation --snapshot
 ```
 
@@ -20,7 +28,8 @@ portapkg bundle instrumation --snapshot
 
 | Flag | Description |
 |---|---|
-| `package` | Package name (positional, required) |
+| `package` | Package name (positional, optional if `--packages` used) |
+| `--packages` | Comma-separated list of packages to bundle |
 | `--platforms` | Comma-separated platform tags (default: all 6) |
 | `--snapshot` | Snapshot current environment (single-platform) |
 
@@ -70,13 +79,21 @@ inside — ready to ship.
 | `--packages` | Comma-separated list of packages to include |
 | `--output`, `-o` | Output directory (default: current directory) |
 
-#### `portapkg update <package>`
+#### `portapkg update [package]`
 
-Re-fetch a bundle (same options as `bundle`).
+Re-fetch one or more bundles (same options as `bundle`).
 
 ```bash
+# Single package
 portapkg update instrumation
+
+# Multiple packages at once
+portapkg update --packages pyserial,pyvisa
+
+# With specific platforms
 portapkg update instrumation --platforms win_amd64
+
+# Snapshot mode
 portapkg update instrumation --snapshot
 ```
 
@@ -84,7 +101,8 @@ portapkg update instrumation --snapshot
 
 | Flag | Description |
 |---|---|
-| `package` | Package name (positional, required) |
+| `package` | Package name (positional, optional if `--packages` used) |
+| `--packages` | Comma-separated list of packages to update |
 | `--platforms` | Comma-separated platform tags |
 | `--snapshot` | Snapshot mode |
 
@@ -101,13 +119,21 @@ machine with Python and pip. No `pip install portapkg` needed.
 
 ### Commands
 
-#### `python portapkg.py bundle <package>`
+#### `python portapkg.py bundle [package]`
 
-Bundle a package (same options as the CLI).
+Bundle one or more packages (same options as the CLI).
 
 ```bash
+# Single package
 python portapkg.py bundle instrumation
+
+# Multiple packages at once
+python portapkg.py bundle --packages pyserial,pyvisa
+
+# With specific platforms
 python portapkg.py bundle instrumation --platforms win_amd64,macosx_13_0_arm64
+
+# Snapshot mode
 python portapkg.py bundle instrumation --snapshot
 ```
 
