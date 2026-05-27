@@ -72,8 +72,8 @@ def python_tag_matches(python_tag, current_pyver):
         ver_part = tag[2:] if tag.startswith("cp") or tag.startswith("py") else tag
         if not ver_part:
             return True
-        major = sys.version_info.major
-        minor = sys.version_info.minor
+        major = int(current_pyver[0])
+        minor = int(current_pyver[1:])
         if int(ver_part[0]) != major:
             continue
         if len(ver_part) < 2:
