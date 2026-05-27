@@ -114,28 +114,10 @@ portapkg update instrumation --snapshot
 
 ## `portapkg.py`
 
-The standalone script — works for **both bundling and installing** on any
+The standalone script — works for **installing and exporting** on any
 machine with Python and pip. No `pip install portapkg` needed.
 
 ### Commands
-
-#### `python portapkg.py bundle [package]`
-
-Bundle one or more packages (same options as the CLI).
-
-```bash
-# Single package
-python portapkg.py bundle instrumation
-
-# Multiple packages at once
-python portapkg.py bundle --packages pyserial,pyvisa
-
-# With specific platforms
-python portapkg.py bundle instrumation --platforms win_amd64,macosx_13_0_arm64
-
-# Snapshot mode
-python portapkg.py bundle instrumation --snapshot
-```
 
 #### `python portapkg.py export [package]`
 
