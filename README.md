@@ -1,9 +1,8 @@
 # portapkg
 
 [![PyPI](https://img.shields.io/pypi/v/portapkg?color=brightgreen)](https://pypi.org/project/portapkg/)
-[![Python versions](https://img.shields.io/pypi/pyversions/portapkg)](https://pypi.org/project/portapkg/)
 [![License](https://img.shields.io/pypi/l/portapkg)](LICENSE)
-[![Downloads](https://img.shields.io/badge/dynamic/json?url=https://pypistats.org/api/packages/portapkg/recent&query=$.data.last_month&label=downloads/month&color=brightgreen)](https://pypistats.org/packages/portapkg)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/portapkg?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/portapkg)
 [![CI](https://img.shields.io/github/actions/workflow/status/abduznik/portapkg-py/.github/workflows/test.yml?branch=main&label=CI)](https://github.com/abduznik/portapkg-py/actions/workflows/test.yml)
 [![Last commit](https://img.shields.io/github/last-commit/abduznik/portapkg-py)](https://github.com/abduznik/portapkg-py/commits/main)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
