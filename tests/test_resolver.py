@@ -1,9 +1,10 @@
 import subprocess
 from unittest.mock import patch
-
-from portapkg.bundler.resolver import _parse_package_version, freeze_snapshot
-
-
+from portapkg.bundler.resolver import (
+    _parse_package_version,
+    freeze_snapshot,
+    resolve_dependencies,
+)
 class TestParsePackageVersion:
     def test_wheel_simple(self):
         name, version = _parse_package_version("instrumation-0.3.0-py3-none-any.whl")
@@ -85,11 +86,14 @@ class TestFreezeSnapshot:
         )
         with patch.object(subprocess, "run", return_value=mock_result):
             import pytest
+
             with pytest.raises(RuntimeError, match="pip freeze failed"):
                 freeze_snapshot()
 
     def test_freeze_handles_comment_lines(self):
-        fake_output = "# This is a comment\npip==23.0\n## Another comment\nsetuptools==68.0.0\n"
+        fake_output = (
+            "# This is a comment\npip==23.0\n## Another comment\nsetuptools==68.0.0\n"
+        )
         mock_result = subprocess.CompletedProcess(
             args=[], returncode=0, stdout=fake_output, stderr=""
         )
@@ -98,3 +102,48 @@ class TestFreezeSnapshot:
         assert result["pip"] == "23.0"
         assert result["setuptools"] == "68.0.0"
         assert len(result) == 2
+
+
+class TestResolveDroppedDeps:
+    def test_warns_on_unresolved_dep(self, capsys):
+        fake_download = subprocess.CompletedProcess(
+            args=[], returncode=0, stdout="", stderr=""
+        )
+
+        def inject_none_dep(pkg, all_deps, tmpdir, platforms):
+            all_deps["colorama"] = None
+
+        with (
+            patch.object(subprocess, "run", return_value=fake_download),
+            patch(
+                "portapkg.bundler.resolver._resolve_conditional_tree",
+                side_effect=inject_none_dep,
+            ),
+            patch("portapkg.bundler.resolver.tempfile.TemporaryDirectory") as mock_tmp,
+            patch("os.listdir", return_value=[]),
+        ):
+            mock_tmp.return_value.__enter__ = lambda s, *a: "/tmp/fake"
+            mock_tmp.return_value.__exit__ = lambda s, *a: None
+            result = resolve_dependencies("requests", platforms=["win_amd64"])
+
+        captured = capsys.readouterr()
+        assert "WARNING" in captured.err
+        assert "colorama" in captured.err
+        assert "colorama" not in result
+
+    def test_no_warning_when_all_deps_resolved(self, capsys):
+        fake_download = subprocess.CompletedProcess(
+            args=[], returncode=0, stdout="", stderr=""
+        )
+
+        with (
+            patch.object(subprocess, "run", return_value=fake_download),
+            patch("portapkg.bundler.resolver.tempfile.TemporaryDirectory") as mock_tmp,
+            patch("os.listdir", return_value=[]),
+        ):
+            mock_tmp.return_value.__enter__ = lambda s, *a: "/tmp/fake"
+            mock_tmp.return_value.__exit__ = lambda s, *a: None
+            resolve_dependencies("requests")
+
+        captured = capsys.readouterr()
+        assert "WARNING" not in captured.err

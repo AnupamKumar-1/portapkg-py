@@ -131,6 +131,9 @@ def resolve_dependencies(package, platforms=None):
         if platforms:
             _resolve_conditional_tree(package, all_deps, tmpdir, platforms)
 
+    for k, v in all_deps.items():
+        if v is None:
+            print(f"WARNING: Could not resolve '{k}', it will be skipped.", file=sys.stderr)
     all_deps = {k: v for k, v in all_deps.items() if v is not None}
     return all_deps
 
