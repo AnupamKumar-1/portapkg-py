@@ -213,7 +213,10 @@ def _install_single(package, target):
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        print(f"ERROR: Installation failed:\n{result.stderr}", file=sys.stderr)
+        print(
+            f"ERROR: Installation failed:\n{result.stdout}\n{result.stderr}",
+            file=sys.stderr,
+        )
         return False
 
     print(result.stdout)
