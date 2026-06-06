@@ -12,7 +12,6 @@ from portapkg.installer.platform import (
 )
 
 
-
 def _wheel_exists(package, version, dest_dir, plat=None, pyver=None):
     """Check if a compatible wheel for (package, version) already exists.
 
@@ -65,7 +64,9 @@ def _try_newer_version(package, cur_version, dest_dir, plat, pyver_dotted):
     try:
         r = subprocess.run(
             [sys.executable, "-m", "pip", "index", "versions", package],
-            capture_output=True, text=True, timeout=30,
+            capture_output=True,
+            text=True,
+            timeout=30,
         )
         if r.returncode != 0:
             return None
@@ -85,7 +86,11 @@ def _try_newer_version(package, cur_version, dest_dir, plat, pyver_dotted):
         for ver in versions[:cur_idx]:
             new_spec = f"{package}=={ver}"
             result = _pip_download(
-                new_spec, dest_dir, plat, pyver_dotted, only_binary=True,
+                new_spec,
+                dest_dir,
+                plat,
+                pyver_dotted,
+                only_binary=True,
             )
             if result.returncode == 0:
                 return ver
@@ -150,7 +155,7 @@ def download_wheels(
             # Layer 4 — newer version with binary wheels (Fix 2: msgpack-like cases)
             bumped = _try_newer_version(package, version, dest_dir, plat, pyver_dotted)
             if bumped:
-                successes.append((plat, pyver, "binary"))
+                successes.append((plat, pyver, "binary", bumped))
                 _warn(
                     f"{spec}: no wheel for {plat}/{pyver}, "
                     f"using {package}=={bumped} instead"
@@ -177,9 +182,7 @@ def download_single_platform(package, version, dest_dir):
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        raise RuntimeError(
-            f"Failed to download {spec}:\n{result.stderr}"
-        )
+        raise RuntimeError(f"Failed to download {spec}:\n{result.stderr}")
     return True
 
 

@@ -17,7 +17,6 @@ from portapkg.installer.platform import (
     detect_current_python,
 )
 
-
 BUNDLES_DIR = os.path.abspath(
     os.environ.get("PORTAPKG_BUNDLES_DIR", os.path.join(os.getcwd(), "bundles"))
 )
@@ -60,8 +59,16 @@ def cmd_bundle(args):
         if args.snapshot:
             _bundle_snapshot(pkg)
         else:
-            platforms = [p.strip() for p in args.platforms.split(",") if p.strip()] if args.platforms else DEFAULT_PLATFORMS
-            python_versions = [p.strip() for p in args.python_versions.split(",") if p.strip()] if args.python_versions else DEFAULT_PYTHON_VERSIONS
+            platforms = (
+                [p.strip() for p in args.platforms.split(",") if p.strip()]
+                if args.platforms
+                else DEFAULT_PLATFORMS
+            )
+            python_versions = (
+                [p.strip() for p in args.python_versions.split(",") if p.strip()]
+                if args.python_versions
+                else DEFAULT_PYTHON_VERSIONS
+            )
             _bundle_multi(pkg, platforms, python_versions)
 
 
@@ -89,10 +96,12 @@ def _bundle_multi(package, platforms, python_versions):
         )
         if failures:
             all_failures[dep_name] = failures
-        dep_entries.append({
-            "name": dep_name,
-            "version": dep_version,
-        })
+        dep_entries.append(
+            {
+                "name": dep_name,
+                "version": next((s[3] for s in successes if len(s) > 3), dep_version),
+            }
+        )
 
     source_plat = detect_current_platform()
     source_py = detect_current_python()
@@ -125,15 +134,19 @@ def _bundle_snapshot(package):
     for dep_name in deps:
         dep_version = frozen.get(dep_name)
         if not dep_version:
-            print(f"  WARNING: {dep_name} not in freeze, using resolved version {deps[dep_name]}")
+            print(
+                f"  WARNING: {dep_name} not in freeze, using resolved version {deps[dep_name]}"
+            )
             dep_version = deps[dep_name]
 
         print(f"  Downloading {dep_name}=={dep_version}...")
         download_single_platform(dep_name, dep_version, wheels_dir)
-        dep_entries.append({
-            "name": dep_name,
-            "version": dep_version,
-        })
+        dep_entries.append(
+            {
+                "name": dep_name,
+                "version": dep_version,
+            }
+        )
 
     pkg_key = package.lower().replace("_", "-")
     pkg_version = frozen.get(pkg_key) or deps.get(pkg_key)
@@ -153,7 +166,8 @@ def cmd_list(args):
         return
 
     bundles = sorted(
-        d for d in os.listdir(BUNDLES_DIR)
+        d
+        for d in os.listdir(BUNDLES_DIR)
         if os.path.isdir(os.path.join(BUNDLES_DIR, d))
     )
 
@@ -166,7 +180,11 @@ def cmd_list(args):
         manifest = read_manifest(os.path.join(BUNDLES_DIR, name))
         if manifest:
             whl_dir = os.path.join(BUNDLES_DIR, name, "wheels")
-            wc = len([f for f in os.listdir(whl_dir) if f.endswith(".whl")]) if os.path.isdir(whl_dir) else 0
+            wc = (
+                len([f for f in os.listdir(whl_dir) if f.endswith(".whl")])
+                if os.path.isdir(whl_dir)
+                else 0
+            )
             print(f"  {name}")
             print(f"    Version: {manifest.get('version', '?')}")
             print(f"    Bundled: {manifest.get('date_bundled', '?')}")
@@ -187,12 +205,18 @@ def cmd_info(args):
         return
 
     whl_dir = os.path.join(bundle_dir, "wheels")
-    wheel_files = sorted(f for f in os.listdir(whl_dir) if f.endswith(".whl")) if os.path.isdir(whl_dir) else []
+    wheel_files = (
+        sorted(f for f in os.listdir(whl_dir) if f.endswith(".whl"))
+        if os.path.isdir(whl_dir)
+        else []
+    )
 
     print(f"Package:  {manifest.get('name', '?')}")
     print(f"Version:  {manifest.get('version', '?')}")
     print(f"Bundled:  {manifest.get('date_bundled', '?')}")
-    print(f"Source:   {manifest.get('source_platform', '?')} / py{manifest.get('source_python', '?')}")
+    print(
+        f"Source:   {manifest.get('source_platform', '?')} / py{manifest.get('source_python', '?')}"
+    )
     print(f"Dependencies ({len(manifest.get('dependencies', []))}):")
     for dep in manifest["dependencies"]:
         print(f"  - {dep['name']}=={dep['version']}")
@@ -231,15 +255,20 @@ def cmd_export(args):
     for pkg in packages:
         bundle_src = _get_bundle_dir(pkg)
         if not os.path.isdir(bundle_src):
-            print(f"ERROR: Bundle for '{pkg}' not found in {BUNDLES_DIR}.\n"
-                  f"Bundle it first: portapkg bundle {pkg}", file=sys.stderr)
+            print(
+                f"ERROR: Bundle for '{pkg}' not found in {BUNDLES_DIR}.\n"
+                f"Bundle it first: portapkg bundle {pkg}",
+                file=sys.stderr,
+            )
             return 1
 
     standalone = _find_standalone()
     if standalone is None:
-        print("ERROR: Could not find portapkg.py. "
-              "Run this from the source repo or place portapkg.py in the current directory.",
-              file=sys.stderr)
+        print(
+            "ERROR: Could not find portapkg.py. "
+            "Run this from the source repo or place portapkg.py in the current directory.",
+            file=sys.stderr,
+        )
         return 1
 
     today = datetime.date.today().isoformat()
@@ -300,8 +329,16 @@ def cmd_update(args):
         if args.snapshot:
             _bundle_snapshot(pkg)
         else:
-            platforms = [p.strip() for p in args.platforms.split(",") if p.strip()] if args.platforms else DEFAULT_PLATFORMS
-            python_versions = [p.strip() for p in args.python_versions.split(",") if p.strip()] if args.python_versions else DEFAULT_PYTHON_VERSIONS
+            platforms = (
+                [p.strip() for p in args.platforms.split(",") if p.strip()]
+                if args.platforms
+                else DEFAULT_PLATFORMS
+            )
+            python_versions = (
+                [p.strip() for p in args.python_versions.split(",") if p.strip()]
+                if args.python_versions
+                else DEFAULT_PYTHON_VERSIONS
+            )
             _bundle_multi(pkg, platforms, python_versions)
 
 
@@ -315,9 +352,15 @@ def main():
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_bundle = sub.add_parser("bundle", help="Bundle a package (or multiple) for offline install")
-    p_bundle.add_argument("package", nargs="?", help="Package name (single-package shortcut)")
-    p_bundle.add_argument("--packages", help="Comma-separated list of packages to bundle")
+    p_bundle = sub.add_parser(
+        "bundle", help="Bundle a package (or multiple) for offline install"
+    )
+    p_bundle.add_argument(
+        "package", nargs="?", help="Package name (single-package shortcut)"
+    )
+    p_bundle.add_argument(
+        "--packages", help="Comma-separated list of packages to bundle"
+    )
     p_bundle.add_argument(
         "--platforms",
         help=(
@@ -333,14 +376,26 @@ def main():
             f"Default: {', '.join(DEFAULT_PYTHON_VERSIONS)}."
         ),
     )
-    p_bundle.add_argument("--snapshot", action="store_true", help="Snapshot current env (single-platform)")
+    p_bundle.add_argument(
+        "--snapshot", action="store_true", help="Snapshot current env (single-platform)"
+    )
     p_bundle.set_defaults(func=cmd_bundle)
 
-    p_export = sub.add_parser("export", help="Export bundle(s) + portapkg.py into a portable folder")
-    p_export.add_argument("package", nargs="?", help="Package name (single-package shortcut)")
-    p_export.add_argument("--name", help="Custom export folder name (default: package name or 'bundle')")
-    p_export.add_argument("--packages", help="Comma-separated list of packages to include")
-    p_export.add_argument("--output", "-o", help="Output directory (default: current directory)")
+    p_export = sub.add_parser(
+        "export", help="Export bundle(s) + portapkg.py into a portable folder"
+    )
+    p_export.add_argument(
+        "package", nargs="?", help="Package name (single-package shortcut)"
+    )
+    p_export.add_argument(
+        "--name", help="Custom export folder name (default: package name or 'bundle')"
+    )
+    p_export.add_argument(
+        "--packages", help="Comma-separated list of packages to include"
+    )
+    p_export.add_argument(
+        "--output", "-o", help="Output directory (default: current directory)"
+    )
     p_export.set_defaults(func=cmd_export)
 
     p_list = sub.add_parser("list", help="List all bundles")
@@ -351,8 +406,12 @@ def main():
     p_info.set_defaults(func=cmd_info)
 
     p_update = sub.add_parser("update", help="Re-fetch a bundle (or multiple)")
-    p_update.add_argument("package", nargs="?", help="Package name (single-package shortcut)")
-    p_update.add_argument("--packages", help="Comma-separated list of packages to update")
+    p_update.add_argument(
+        "package", nargs="?", help="Package name (single-package shortcut)"
+    )
+    p_update.add_argument(
+        "--packages", help="Comma-separated list of packages to update"
+    )
     p_update.add_argument(
         "--platforms",
         help=(
