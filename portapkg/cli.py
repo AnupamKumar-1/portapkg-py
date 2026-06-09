@@ -2,6 +2,7 @@ import argparse
 import datetime
 import os
 import random
+import re
 import shutil
 import string
 import sys
@@ -250,6 +251,10 @@ def cmd_export(args):
 
     # Determine the export name
     export_name = args.name or (args.package if args.package else "bundle")
+    export_name = re.sub(r'[^a-zA-Z0-9_.-]', '_', export_name)
+    if not export_name:
+        print("ERROR: export name is empty after sanitization.", file=sys.stderr)
+        return 1
 
     # Validate all bundles exist
     for pkg in packages:

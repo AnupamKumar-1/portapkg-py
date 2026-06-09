@@ -1,8 +1,9 @@
 import os
+import re
 import argparse
 from unittest.mock import patch
 
-from portapkg.cli import cmd_list, cmd_info, cmd_update
+from portapkg.cli import cmd_list, cmd_info, cmd_update, cmd_export
 
 
 class TestCmdList:
@@ -76,3 +77,68 @@ class TestCmdUpdate:
             )
             cmd_update(args)
             mock_snapshot.assert_called_once()
+
+
+class TestCmdExportSanitize:
+    def _make_args(self, name=None, package="testpkg", packages=None, output=None):
+        return argparse.Namespace(
+            name=name, package=package, packages=packages, output=output
+        )
+
+    def test_valid_name_passes_through(self, tmp_path):
+        with (
+            patch("portapkg.cli._get_bundle_dir", return_value=str(tmp_path)),
+            patch(
+                "portapkg.cli._find_standalone",
+                return_value=str(tmp_path / "portapkg.py"),
+            ),
+            patch("portapkg.cli.shutil.copy2"),
+            patch("portapkg.cli.shutil.copytree"),
+            patch("portapkg.cli.os.makedirs"),
+            patch("portapkg.cli.os.chmod"),
+            patch("portapkg.cli.os.path.exists", return_value=False),
+            patch("portapkg.cli.os.path.isdir", return_value=True),
+            patch("portapkg.cli._dir_size", return_value=0.0),
+        ):
+            args = self._make_args(name="mypackage", output=str(tmp_path))
+            result = cmd_export(args)
+            assert result == 0
+
+    def test_path_traversal_sanitized(self, tmp_path):
+        with (
+            patch("portapkg.cli._get_bundle_dir", return_value=str(tmp_path)),
+            patch(
+                "portapkg.cli._find_standalone",
+                return_value=str(tmp_path / "portapkg.py"),
+            ),
+            patch("portapkg.cli.shutil.copy2"),
+            patch("portapkg.cli.shutil.copytree"),
+            patch("portapkg.cli.os.makedirs"),
+            patch("portapkg.cli.os.chmod"),
+            patch("portapkg.cli.os.path.exists", return_value=False),
+            patch("portapkg.cli.os.path.isdir", return_value=True),
+            patch("portapkg.cli._dir_size", return_value=0.0),
+        ):
+            args = self._make_args(name="../../../etc", output=str(tmp_path))
+            result = cmd_export(args)
+            assert result == 0
+
+    def test_special_chars_sanitized(self):
+        assert re.sub(r"[^a-zA-Z0-9_.-]", "_", "my package!") == "my_package_"
+
+    def test_empty_name_after_sanitize_rejected(self, capsys):
+        with (
+            patch("portapkg.cli._get_bundle_dir"),
+            patch("portapkg.cli._find_standalone", return_value="/fake/portapkg.py"),
+            patch("portapkg.cli.os.path.isdir", return_value=True),
+            patch("portapkg.cli.shutil.copy2"),
+            patch("portapkg.cli.shutil.copytree"),
+            patch("portapkg.cli.os.makedirs"),
+            patch("portapkg.cli.os.chmod"),
+            patch("portapkg.cli.os.path.exists", return_value=False),
+            patch("portapkg.cli._dir_size", return_value=0.0),
+        ):
+            args = self._make_args(name="", package=None, output="/tmp")
+            result = cmd_export(args)
+            captured = capsys.readouterr()
+            assert result == 1 and "ERROR" in captured.err
